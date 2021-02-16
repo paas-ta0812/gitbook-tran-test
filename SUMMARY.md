@@ -120,4 +120,9 @@
     * [포탈 Object Storage 설치 가이드](guide-2.0-linguine/use-guide/paas-ta-object-storage.md)
     * [포탈 배포 가이드](guide-2.0-linguine/use-guide/paas-ta-portal.md)
     * [Usage Reporting API 가이드](guide-2.0-linguine/use-guide/paas-ta_usage_reporting_api_.md)
+* [PaaS-TA 3.0 가이드 문서](paas-ta-3.0/README.md)
+  * [Install-Guide](paas-ta-3.0/install-guide/README.md)
+    * [Bosh](paas-ta-3.0/install-guide/bosh/README.md)
+      * [Bosh Monitoring Agent 설치 가이드\(Openstack\)](paas-ta-3.0/install-guide/bosh/bosh-monitoring-agent-openstack.md)
+      * [Bosh Monitoring Agent 설치 가이드\(vsphere\)](paas-ta-3.0/install-guide/bosh/bosh-monitoring-agent-vsphere.md)
 
