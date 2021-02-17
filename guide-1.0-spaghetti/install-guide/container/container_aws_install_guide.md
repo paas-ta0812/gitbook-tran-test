@@ -1304,9 +1304,9 @@ Diego module에 대한 bosh upload 과정이 끝났으면, deploy 과정을 통�
   $ bosh deploy
 ```
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container_aws_guide_05.png)
+> ![](../../../.gitbook/assets/image%20%282%29.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container_aws_guide_06.png)
+> ![](../../../.gitbook/assets/image%20%283%29.png)
 >
 > **\[그림 : bosh deploy 실행 결과\]**
 
