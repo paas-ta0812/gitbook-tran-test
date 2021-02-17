@@ -1,31 +1,91 @@
 # Cubrid 설치 가이드\(Bosh-Lite\)
 
-1. [문서 개요](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#1)
-   * [1.1. 목적](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#2)
-   * [1.2. 범위](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#3)
-   * [1.3. 시스템 구성도](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#4)
-   * [1.4. 참고자료](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#5)
-2. [Cubrid 서비스팩 설치](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#6)
-   * [2.1. 설치전 준비사항](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#7)
-   * [2.2. Cubrid 서비스 릴리즈 업로드](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#8)
-   * [2.3. Cubrid 서비스 Deployment 파일 수정 및 배포](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#9)
-   * [2.4. Cubrid 서비스 브로커 등록](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#10)
-3. [Cubrid 연동 Sample App 설명](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#11)
-   * [3.1. Sample App 구조](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#12)
-   * [3.2. 개방형 클라우드 플랫폼에서 서비스 신청](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#13)
-   * [3.3. Sample App에 서비스 바인드 신청 및 App 확인](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#14)
-4. [Cubrid Client 툴 접속](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#15)
-   * [4.1. Putty 다운로드 및 터널링](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#16)
-   * [4.2. Cubrid Manager 설치 및 연결](openpaas_paasta_servicepack_cubrid_bosh-lite_install_guide.md#17)
+## 1. 문서 개요
 
- \# 1. 문서 개요 \#\#\# 1.1. 목적 본 문서\(Cubrid 서비스팩 설치 가이드\)는 전자정부표준프레임워크 기반의 Open PaaS에서 제공되는 서비스팩인 Cubrid 서비스팩을 Bosh를 이용하여 설치 하는 방법과 Open PaaS의 SaaS 형태로 제공하는 Application 에서 Cubrid 서비스를 사용하는 방법을 기술하였다. \#\#\# 1.2. 범위 설치 범위는 Cubrid 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다. \#\#\# 1.3. 시스템 구성도 본 문서의 설치된 시스템 구성도입니다. Cubrid Server, Cubrid 서비스 브로커로 최소사항을 구성하였다. !\[시스템 구성도\]\[1-3-0-0\]
+### 1.1. 목적
+
+본 문서\(Cubrid 서비스팩 설치 가이드\)는 전자정부표준프레임워크 기반의 Open PaaS에서 제공되는 서비스팩인 Cubrid 서비스팩을 Bosh를 이용하여 설치 하는 방법과 Open PaaS의 SaaS 형태로 제공하는 Application 에서 Cubrid 서비스를 사용하는 방법을 기술하였다.
+
+### 1.2. 범위
+
+설치 범위는 Cubrid 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
+
+### 1.3. 시스템 구성도
+
+본 문서의 설치된 시스템 구성도입니다. Cubrid Server, Cubrid 서비스 브로커로 최소사항을 구성하였다.  
+![](../../../.gitbook/assets/1-3-0-0.png)
 
 | 구분 | 스펙 |
 | :--- | :--- |
 | openpaas-cubrid-broker | 1vCPU / 4GB RAM / 8GB Disk |
 | Cubrid | 1vCPU / 4GB RAM / 8GB Disk+16GB\(영구적 Disk\) |
 
- \#\#\# 1.4. 참고자료 \*\*\*\* \*\*\*\* \# 2. Cubrid 서비스팩 설치 \#\#\# 2.1. 설치전 준비사항 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다. 서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다. BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다. - OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-Services, OpenPaaS-Deployment, OpenPaaS-Sample-Apps\) - 다운로드 위치 &gt;OpenPaaS-Services : \*\*\*\* &gt;OpenPaaS-Deployment : \*\*\*\* &gt;OpenPaaS-Sample-Apps : \*\*\*\* \#\#\# 2.2. Cubrid 서비스 릴리즈 업로드 - OpenPaaS-Services을 다운로드 받고 폴더안에 있는 cubrid 서비스 릴리즈 openpaas-cubrid-1.0.tgz 파일을 확인한다. &gt;$ cd OpenPaaS-Services &gt;$ ls -all !\[2-2-0-0-1\] - 업로드 되어 있는 릴리즈 목록을 확인한다. &gt;$ bosh releases !\[2-2-4-0-1\] &gt;Cubrid 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인 - Cubrid 서비스 릴리즈를 업로드한다. &gt;$ bosh upload release {서비스 릴리즈 파일 PATH} &gt; &gt;$ bosh upload release openpaas-cubrid-1.0.tgz !\[2-2-6-0-1\] - 업로드 된 Cubrid 릴리즈를 확인한다. &gt;$ bosh releases !\[2-2-7-0-1\] &gt;Cubrid 서비스 릴리즈가 업로드 되어 있는 것을 확인 \#\#\# 2.3. Cubrid 서비스 Deployment 파일 수정 및 배포 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다. Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \(OS, BOSH agent\) 을 사용할것이며 Release \(Software packages, Config templates, Scripts\) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다. - OpenPaaS-Deployment을 다운로드 받고 폴더안에 있는 Bosh-lite용 Cubrid Deployment 화일인 openpaas-cubrid-lite-1.0.yml를 복사한다. - 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-cubrid-lite-1.0.yml\) &gt;$ ls –all &gt;!\[2-3-0-0\] - Director UUID를 확인한다. - BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다. &gt;$ bosh status &gt;!\[2-3-1-0\] - Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\) &gt;$ bosh stemcells &gt;!\[2-3-2-0-1\] &gt;Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
+### 1.4. 참고자료
+
+[http://bosh.io/docs](http://bosh.io/docs)  
+[http://docs.cloudfoundry.org/](http://docs.cloudfoundry.org/)
+
+## 2. Cubrid 서비스팩 설치
+
+### 2.1. 설치전 준비사항
+
+본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.  
+서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.  
+BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
+
+* OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-Services, OpenPaaS-Deployment, OpenPaaS-Sample-Apps\)
+* 다운로드 위치
+
+> OpenPaaS-Services : [http://extdisk.hancom.com:8080/share.cgi?ssid=0IgH8sM](http://extdisk.hancom.com:8080/share.cgi?ssid=0IgH8sM)  
+> OpenPaaS-Deployment : [http://extdisk.hancom.com:8080/share.cgi?ssid=0YWXQzq](http://extdisk.hancom.com:8080/share.cgi?ssid=0YWXQzq)  
+> OpenPaaS-Sample-Apps : [http://extdisk.hancom.com:8080/share.cgi?ssid=0icB5ZW](http://extdisk.hancom.com:8080/share.cgi?ssid=0icB5ZW)
+
+### 2.2. Cubrid 서비스 릴리즈 업로드
+
+* OpenPaaS-Services을 다운로드 받고 폴더안에 있는 cubrid 서비스 릴리즈 openpaas-cubrid-1.0.tgz 파일을 확인한다.
+
+> $ cd OpenPaaS-Services  
+> $ ls -all  
+> ![](../../../.gitbook/assets/2-2-0-0-1-1-.png)
+
+* 업로드 되어 있는 릴리즈 목록을 확인한다.
+
+> $ bosh releases  
+> ![](../../../.gitbook/assets/2-2-4-0-1-1-.png)  
+> Cubrid 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+
+* Cubrid 서비스 릴리즈를 업로드한다.
+
+> $ bosh upload release {서비스 릴리즈 파일 PATH}
+>
+> $ bosh upload release openpaas-cubrid-1.0.tgz  
+> ![](../../../.gitbook/assets/2-2-6-0-1-1-.png)
+
+* 업로드 된 Cubrid 릴리즈를 확인한다. 
+
+> $ bosh releases  
+> ![](../../../.gitbook/assets/2-2-7-0-1-1-.png)  
+> Cubrid 서비스 릴리즈가 업로드 되어 있는 것을 확인
+
+### 2.3.  Cubrid 서비스 Deployment 파일 수정 및 배포
+
+BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다. Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \(OS, BOSH agent\) 을 사용할것이며 Release \(Software packages, Config templates, Scripts\) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
+
+* OpenPaaS-Deployment을 다운로드 받고 폴더안에 있는 Bosh-lite용 Cubrid Deployment 화일인 openpaas-cubrid-lite-1.0.yml를 복사한다.
+* 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-cubrid-lite-1.0.yml\)
+
+> $ ls –all ![](../../../.gitbook/assets/2-3-0-0-1-.png)
+
+* Director UUID를 확인한다.
+* BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다.
+
+> $ bosh status ![](../../../.gitbook/assets/2-3-1-0-1-.png)
+
+* Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\)
+
+> $ bosh stemcells ![](../../../.gitbook/assets/2-3-2-0-1.png)
+>
+> Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
 
 * openpaas-cubrid-lite-1.0.yml Deployment 파일을 서버 환경에 맞게 수정한다.
 
@@ -168,27 +228,55 @@
 
 > $ bosh deployment {Deployment manifest 파일 PATH}  
 > $ bosh deployment openpaas-cubrid-lite-1.0.yml  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/2-3-3-0.png)
+> ![](../../../.gitbook/assets/2-3-3-0-1-.png)
 
 * Cubrid 서비스팩을 배포한다.
 
 > $ bosh deploy  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/2-3-4-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/2-3-4-1.png)
+> ![](../../../.gitbook/assets/2-3-4-0-1-.png)  
+> ![](../../../.gitbook/assets/2-3-4-1-1-.png)
 
 * 배포된 Cubrid 서비스팩을 확인한다.
 
 > $ bosh vms  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/2-3-5-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/2-3-5-1.png)
+> ![](../../../.gitbook/assets/2-3-5-0-1-.png)  
+> ![](../../../.gitbook/assets/2-3-5-1-1-.png)
 
- \#\#\# 2.4. Cubrid 서비스 브로커 등록 Cubrid 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Cubrid 서비스 브로커를 등록해 주어야 한다. 서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다. - 서비스 브로커 목록을 확인한다. &gt;$ cf service-brokers !\[2-4-0-0\] - Cubrid 서비스 브로커를 등록한다. &gt;$ cf create-service-broker {서비스팩 이름}{서비스팩 사용자ID}{서비스팩 사용자비밀번호} http://{서비스팩 URL} - 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다. - 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다. - 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다. &gt; &gt;$ cf create-service-broker cubrid-service-broker admin cloudfoundry http://10.244.15.6:8080 &gt;!\[2-4-1-0\] - 등록된 Cubrid 서비스 브로커를 확인한다. &gt;$ cf service-brokers &gt;!\[2-4-2-0\] - 접근 가능한 서비스 목록을 확인한다. &gt;$ cf service-access &gt;!\[2-4-3-0\] &gt;서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
+### 2.4. Cubrid 서비스 브로커 등록
+
+Cubrid 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Cubrid 서비스 브로커를 등록해 주어야 한다.  
+서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
+
+* 서비스 브로커 목록을 확인한다.
+
+> $ cf service-brokers ![](../../../.gitbook/assets/2-4-0-0-1-.png)
+
+* Cubrid 서비스 브로커를 등록한다.
+
+> $ cf create-service-broker {서비스팩 이름}{서비스팩 사용자ID}{서비스팩 사용자비밀번호} [http://{서비스팩](http://{서비스팩) URL}
+>
+> * 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다.  
+> * 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.  
+> * 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.  
+>
+> $ cf create-service-broker cubrid-service-broker admin cloudfoundry [http://10.244.15.6:8080](http://10.244.15.6:8080)  
+> ![](../../../.gitbook/assets/2-4-1-0-1-.png)
+
+* 등록된 Cubrid 서비스 브로커를 확인한다.
+
+> $ cf service-brokers ![](../../../.gitbook/assets/2-4-2-0-1-.png)
+
+* 접근 가능한 서비스 목록을 확인한다.
+
+> $ cf service-access ![](../../../.gitbook/assets/2-4-3-0-1-.png)
+>
+> 서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
 
 * 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. \(전체 조직\)
 
 > $ cf enable-service-access CubridDB  
 > $ cf service-access  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/2-4-4-0.png)
+> ![](../../../.gitbook/assets/2-4-4-0-1-.png)
 
 ## 3. Cubrid연동 Sample App 설명
 
@@ -209,7 +297,7 @@ Sample Web App 구조는 다음과 같다.
 
 * OpenPaaS-Sample-Apps을 다운로드 받고 Service 폴더안에 있는 Cubrid Sample Web App인 hello-spring-cubrid를 복사한다.
 
-> $ ls -all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-1-0-0.png)
+> $ ls -all ![](../../../.gitbook/assets/3-1-0-0-1-.png)
 
 ### 3.2. 개방형 클라우드 플랫폼에서 서비스 신청
 
@@ -217,7 +305,7 @@ Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신
 
 * 먼저 개방형 클라우드 플랫폼 Marketplace에서 서비스가 있는지 확인을 한다.
 
-> $ cf marketplace ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-2-0-0.png)
+> $ cf marketplace ![](../../../.gitbook/assets/3-2-0-0-1-.png)
 
 * Marketplace에서 원하는 서비스가 있으면 서비스 신청\(Provision\)을 한다.
 
@@ -228,11 +316,11 @@ Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신
 > * 내서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
 >
 > $ cf create-service CubridDB utf8 cubrid-service-instance  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-2-1-0.png)
+> ![](../../../.gitbook/assets/3-2-1-0-1-.png)
 
 * 생성된 Cubrid 서비스 인스턴스를 확인한다.
 
-> $ cf services ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-2-2-0.png)
+> $ cf services ![](../../../.gitbook/assets/3-2-2-0-1-.png)
 
 ### 3.3. Sample App에 서비스 바인드 신청 및 App 확인
 
@@ -260,24 +348,24 @@ Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신
   --no-start: App 배포시 구동은 하지 않는다.
 
 > $ cf push --no-start  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-0-0.png)
+>  ![](../../../.gitbook/assets/3-3-0-0-1-.png)
 
 * 배포된 Sample App을 확인하고 로그를 수행한다.
 
 > $ cf apps  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-1-0.png)
+>  ![](../../../.gitbook/assets/3-3-1-0-1-.png)
 >
 > $ cf logs {배포된 App명}  
->  $ cf logs hello-spring-cubrid ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-2-0.png)
+>  $ cf logs hello-spring-cubrid ![](../../../.gitbook/assets/3-3-2-0-1-.png)
 
 * Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다. 
 
-> $ cf bind-service hello-spring-cubrid cubrid-service-instance ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-3-0.png)
+> $ cf bind-service hello-spring-cubrid cubrid-service-instance ![](../../../.gitbook/assets/3-3-3-0-1-.png)
 
 * 바인드가 적용되기 위해서 App을 재기동한다.
 
-> $ cf restart hello-spring-cubrid ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-4-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-4-1.png)
+> $ cf restart hello-spring-cubrid ![](../../../.gitbook/assets/3-3-4-0-1-.png)  
+> ![](../../../.gitbook/assets/3-3-4-1-1-.png)
 
 * \(참고\) 바인드 후 App구동시 Cubrid 서비스 접속 에러로 App 구동이 안될 경우 보안 그룹을 추가한다.
 
@@ -299,61 +387,67 @@ Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신
 > - 보안 그룹을 생성한다.  
 >
 >
-> $ cf create-security-group CubridDB rule.json ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-5-0.png)
+> $ cf create-security-group CubridDB rule.json ![](../../../.gitbook/assets/3-3-5-0-1-.png)
 >
 > - 모든 App에 Cubrid 서비스를 사용할수 있도록 생성한 보안 그룹을 적용한다.  
 >
 >
-> $ cf bind-running-security-group CubridDB ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-6-0.png)
+> $ cf bind-running-security-group CubridDB ![](../../../.gitbook/assets/3-3-6-0-1-.png)
 >
 > - App을 리부팅 한다.  
 >
 >
-> $ cf restart hello-spring-cubrid ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-7-0.png)
+> $ cf restart hello-spring-cubrid ![](../../../.gitbook/assets/3-3-7-0-1-.png)
 
 * App이 정상적으로 Cubrid 서비스를 사용하는지 확인한다.
 
-> - curl 로 확인  
->  $ curl hello-spring-cubrid.115.68.46.30.xip.io ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-8-0.png)
+> - curl 로 확인   
+>  $ curl hello-spring-cubrid.115.68.46.30.xip.io
+>
+> ![](../../../.gitbook/assets/3-3-8-0-1-.png)
 >
 > - 브라우져에서 확인  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/3-3-8-1.png)
+> ![](../../../.gitbook/assets/3-3-8-1-1-.png)
+
+
 
 ## 4. Cubrid Client 툴 접속
 
 Application에 바인딩된 Cubrid 서비스 연결정보는 Private IP로 구성되어 있기 때문에 Cubrid Client 툴에서 직접 연결할수 없다. 따라서 Cubrid Client 툴에서 SSH 터널, Proxy 터널 등을 제공하는 툴을 사용해서 연결하여야 한다. 본 가이드는 무료 SSH 및 텔넷 접속 툴인 Putty를 이용하여 SSH 터널을 통해 연결 하는 방법을 제공하며 Cubrid Client 툴로써는 Cubrid에서 제공하는 Cubrid Manager로 가이드한다. Cubrid Manager 에서 접속하기 위해서 먼저 SSH 터널링 할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 Open PaaS 에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 Bosh-lite관리자 및 OpenPaaS 운영자에게 문의하여 구성한다.
 
+
+
 ### 4.1.  Putty 다운로드 및 터널링
 
 Putty 프로그램은 SSH 및 텔넷 접속을 할 수 있는 무료 소프트웨어이다.
 
-* Putty를 다운로드 하기 위해 아래 URL로 이동하여 파일을 다운로드 한다. 별도의 설치과정없이 사용할 수 있다. [http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-0-0.png)
-* 다운받은 putty.exe.파일을 더블클릭하여 실행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-1-0.png)
-* Session 탭의 Host name과 Port란에. OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-2-0.png)
-* Connection-&gt;SSH-&gt;Tunnels 탭에서 Source port\(내 로컬에서 접근할 포트\), Destination\(터널링으로 연결할 서버정보\)를 입력하고 Local, Auto를 선택 후 Add를 클릭한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-3-0.png) ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-3-1.png) 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다. 예\) $ cf env hello-spring-cubrid ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-4-0.png)
-* Session 탭에서 Saved Sessions에 저장할 이름을 입력하고 Save를 눌러 저장한 후 Open버튼을 누른다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-5-0.png)
-* 서버 접속정보를 입력하여 접속하여 터널링을 완료한다. 만약 ssh 인증이 Password방식이 아닌 Key인증 방식일 경우, Connection-&gt;SSH-&gt;인증탭의 '인증 개인키 파일'에 key 파일을 등록하여 인증한다. Key파일의 확장자가 .pem이라면 putty설치시 같이 설치된 puttygen을 사용하여 ppk파일로 변환한뒤 사용한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-1-6-0.png)
+* Putty를 다운로드 하기 위해 아래 URL로 이동하여 파일을 다운로드 한다. 별도의 설치과정없이 사용할 수 있다. [http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) ![](../../../.gitbook/assets/4-1-0-0.png)
+* 다운받은 putty.exe.파일을 더블클릭하여 실행한다. ![](../../../.gitbook/assets/4-1-1-0.png)
+* Session 탭의 Host name과 Port란에. OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다. ![](../../../.gitbook/assets/4-1-2-0.png)
+* Connection-&gt;SSH-&gt;Tunnels 탭에서 Source port\(내 로컬에서 접근할 포트\), Destination\(터널링으로 연결할 서버정보\)를 입력하고 Local, Auto를 선택 후 Add를 클릭한다. ![](../../../.gitbook/assets/4-1-3-0.png) ![](../../../.gitbook/assets/4-1-3-1.png) 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다. 예\) $ cf env hello-spring-cubrid ![](../../../.gitbook/assets/4-1-4-0.png)
+* Session 탭에서 Saved Sessions에 저장할 이름을 입력하고 Save를 눌러 저장한 후 Open버튼을 누른다. ![](../../../.gitbook/assets/4-1-5-0.png)
+* 서버 접속정보를 입력하여 접속하여 터널링을 완료한다. 만약 ssh 인증이 Password방식이 아닌 Key인증 방식일 경우, Connection-&gt;SSH-&gt;인증탭의 '인증 개인키 파일'에 key 파일을 등록하여 인증한다. Key파일의 확장자가 .pem이라면 putty설치시 같이 설치된 puttygen을 사용하여 ppk파일로 변환한뒤 사용한다. ![](../../../.gitbook/assets/4-1-6-0.png)
 
 ### 4.2.  Cubrid Manager 설치 & 연결
 
 Cubrid Manager 프로그램은 Cubrid에서 제공하는 무료로 사용할 수 있는 소프트웨어이다.
 
-* Cubrid Manager를 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다. [http://ftp.cubrid.org/CUBRID\_Tools/CUBRID\_Manager/](http://ftp.cubrid.org/CUBRID_Tools/CUBRID_Manager/) ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-0-0.png)
-* 다운받은 파일을 더블클릭하여 실행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-1-0.png)
-* 한국어를 선택하고 OK를 누른다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-2-0.png)
-* 다음을 눌러 계속 진행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-3-0.png)
-* 동의함을 눌러 계속 진행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-4-0.png)
-* 바로가기 옵션을 선택 후 다음을 눌러 계속 진행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-5-0.png)
-* 설치 경로를 입력하고 설치를 눌러 설치를 시작한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-6-0.png)
-* 설치가 완료되면 다음을 눌러 계속 진행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-7-0.png)
-* 마침을 눌러 설치를 완료한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-8-0.png)
-* 설치된 Cubrid Manager를 실행하면 처음 나오는 화면이다. Workspace를 선택 후 OK를 눌러 실행한다. 만약 이 창을 다시보기를 원치않는다면 '기본적으로 이것을 사용하고 다시 물어 보지 않기' 옵션을 선택한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-9-0.png)
-* 관리 모드, 질의 모드 둘중 목적에 맞게 선택 후 확인을 눌러 실행한다. 여기서는 질의 모드로 실행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-10-0.png)
-* 연결정보를 입력하기 위해서 연결 정보 등록을 누른다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-11-0.png)
-* Server에 접속하기 위한 Connection 정보를 입력한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-12-0.png) 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다. 예\) $ cf env hello-spring-cubrid ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-13-0.png)
-* 연결 테스트 버튼을 클릭하여 접속 테스트를 한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-14-0.png) 정보가 정상적으로 입력되었다면 '연결이 성공하였습니다.'라는 메시지가 나온다. 확인 버튼을 눌러 창을 닫는다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-15-0.png)
-* 연결 버튼을 클릭하여 접속한다 ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-16-0.png)
-* 접속이 완료되면 좌측에 스키마 정보가 나타난다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-17-0.png)
-* 질의 편집기 버튼을 클릭하면 오른쪽 창에 query를 입력할 수 있는 창이 열린다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-18-0.png)
-* 우측 화면에 쿼리 항목에 Query문을 작성한 후 실행 버튼\(삼각형\)을 클릭한다. 쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/cubrid/cubrid_lite/4-2-19-0.png)
+* Cubrid Manager를 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다. [http://ftp.cubrid.org/CUBRID\_Tools/CUBRID\_Manager/](http://ftp.cubrid.org/CUBRID_Tools/CUBRID_Manager/) ![](../../../.gitbook/assets/4-2-0-0.png)
+* 다운받은 파일을 더블클릭하여 실행한다. ![](../../../.gitbook/assets/4-2-1-0.png)
+* 한국어를 선택하고 OK를 누른다. ![](../../../.gitbook/assets/4-2-2-0.png)
+* 다음을 눌러 계속 진행한다. ![](../../../.gitbook/assets/4-2-3-0.png)
+* 동의함을 눌러 계속 진행한다. ![](../../../.gitbook/assets/4-2-4-0.png)
+* 바로가기 옵션을 선택 후 다음을 눌러 계속 진행한다. ![](../../../.gitbook/assets/4-2-5-0.png)
+* 설치 경로를 입력하고 설치를 눌러 설치를 시작한다. ![](../../../.gitbook/assets/4-2-6-0.png)
+* 설치가 완료되면 다음을 눌러 계속 진행한다. ![](../../../.gitbook/assets/4-2-7-0.png)
+* 마침을 눌러 설치를 완료한다. ![](../../../.gitbook/assets/4-2-8-0.png)
+* 설치된 Cubrid Manager를 실행하면 처음 나오는 화면이다. Workspace를 선택 후 OK를 눌러 실행한다. 만약 이 창을 다시보기를 원치않는다면 '기본적으로 이것을 사용하고 다시 물어 보지 않기' 옵션을 선택한다. ![](../../../.gitbook/assets/4-2-9-0.png)
+* 관리 모드, 질의 모드 둘중 목적에 맞게 선택 후 확인을 눌러 실행한다. 여기서는 질의 모드로 실행한다. ![](../../../.gitbook/assets/4-2-10-0.png)
+* 연결정보를 입력하기 위해서 연결 정보 등록을 누른다. ![](../../../.gitbook/assets/4-2-11-0.png)
+* Server에 접속하기 위한 Connection 정보를 입력한다. ![](../../../.gitbook/assets/4-2-12-0.png) 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다. 예\) $ cf env hello-spring-cubrid ![](../../../.gitbook/assets/4-2-13-0.png)
+* 연결 테스트 버튼을 클릭하여 접속 테스트를 한다. ![](../../../.gitbook/assets/4-2-14-0.png) 정보가 정상적으로 입력되었다면 '연결이 성공하였습니다.'라는 메시지가 나온다. 확인 버튼을 눌러 창을 닫는다. ![](../../../.gitbook/assets/4-2-15-0.png)
+* 연결 버튼을 클릭하여 접속한다 ![](../../../.gitbook/assets/4-2-16-0.png)
+* 접속이 완료되면 좌측에 스키마 정보가 나타난다. ![](../../../.gitbook/assets/4-2-17-0.png)
+* 질의 편집기 버튼을 클릭하면 오른쪽 창에 query를 입력할 수 있는 창이 열린다. ![](../../../.gitbook/assets/4-2-18-0.png)
+* 우측 화면에 쿼리 항목에 Query문을 작성한 후 실행 버튼\(삼각형\)을 클릭한다. 쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다. ![](../../../.gitbook/assets/4-2-19-0.png)
 
