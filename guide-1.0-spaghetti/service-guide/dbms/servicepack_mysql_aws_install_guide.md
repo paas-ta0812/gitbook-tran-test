@@ -1,21 +1,6 @@
 # MySQL 설치 가이드\(AWS\)
 
-1. [문서 개요](servicepack_mysql_aws_install_guide.md#1-문서-개요)
-   * 1.1. [목적](servicepack_mysql_aws_install_guide.md#11-목적)
-   * 1.2. [범위](servicepack_mysql_aws_install_guide.md#12-범위)
-   * 1.3. [시스템 구성도](servicepack_mysql_aws_install_guide.md#13-시스템-구성도)
-   * 1.4. [참고자료](servicepack_mysql_aws_install_guide.md#14-참고자료)
-2. [MySQL 서비스팩 설치](servicepack_mysql_aws_install_guide.md#2-mysql-서비스팩-설치)
-   * 2.1. [설치전 준비사항](servicepack_mysql_aws_install_guide.md#21-설치전-준비사항)
-   * 2.2. [MySQL 서비스 릴리즈 업로드](servicepack_mysql_aws_install_guide.md#22-mysql-서비스-릴리즈-업로드)
-   * 2.3. [MySQL 서비스 Deployment 파일 수정 및 배포](servicepack_mysql_aws_install_guide.md#23-mysql-서비스-deployment-파일-수정-및-배포)
-   * 2.4. [MySQL 서비스 브로커 등록](servicepack_mysql_aws_install_guide.md#24-mysql-서비스-브로커-등록)
-3. [MySQL 연동 Sample Web App 설명](servicepack_mysql_aws_install_guide.md#3-mysql-연동-sample-web-app-설명)
-   * 3.1. [Sample Web App 구조](servicepack_mysql_aws_install_guide.md#31-sample-web-app-구조)
-   * 3.2. [개방형 클라우드 플랫폼에서 서비스 신청](servicepack_mysql_aws_install_guide.md#32-개방형-클라우드-플랫폼에서-서비스-신청)
-   * 3.3. [Sample Web App에 서비스 바인드 신청 및 App 확인](servicepack_mysql_aws_install_guide.md#33-sample-web-app에-서비스-바인드-신청-및-app-확인)
-4. [MySQL Client 툴 접속](servicepack_mysql_aws_install_guide.md#4-mysql-client-툴-접속)
-   * 4.1. [HeidiSQL 설치 및 연결](servicepack_mysql_aws_install_guide.md#41-heidisql-설치-및-연결)
+## 
 
 ## 1. 문서 개요
 
@@ -31,7 +16,7 @@
 
 본 문서의 설치된 시스템 구성도이다. MySQL Server, MySQL 서비스 브로커, Proxy로 최소사항을 구성하였다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_00.png)
+![](../../../.gitbook/assets/mysql_aws_00.png)
 
 | 구분 | Resource Pool | Instance Type \(스펙\) |
 | :--- | :--- | :--- |
@@ -64,7 +49,7 @@
 > `$ cd openpaas-service-release`  
 > `$ ls –all`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_01.png)
+> ![](../../../.gitbook/assets/mysql_aws_01.png)
 
 #### MySQL 서비스 릴리즈 파일을 업로드한다.
 
@@ -73,25 +58,25 @@
 >
 > ※ 하단의 화면은 릴리즈 파일을 tarball 형태로 압축하지 않고 릴리즈를 업로드하고 있다. 본 문서에서 안내하는 방법대로 tarball 형태로 릴리즈 파일 압축하여 업로드 할 경우에 출력되는 화면은 하단의 화면과 다소 차이가 있다.
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_01.png)
+> ![](../../../.gitbook/assets/mysql_aws_01-1-%20%281%29.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_02.png)
+> ![](../../../.gitbook/assets/mysql_aws_02-1-.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_03.png)
+> ![](../../../.gitbook/assets/mysql_aws_03.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_04.png)
+> ![](../../../.gitbook/assets/mysql_aws_04.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_05.png)
+> ![](../../../.gitbook/assets/mysql_aws_05.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_06.png)
+> ![](../../../.gitbook/assets/mysql_aws_06.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_07.png)
+> ![](../../../.gitbook/assets/mysql_aws_07.png)
 
 #### 업로드 된 MySQL 릴리즈를 확인한다.
 
 > `$ bosh releases`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_08.png)
+> ![](../../../.gitbook/assets/mysql_aws_08.png)
 >
 > Mysql 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
@@ -106,7 +91,7 @@ BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한
 > `$ cd Deployment`  
 > `$ ls –all`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_09.png)
+> ![](../../../.gitbook/assets/mysql_aws_09.png)
 
 #### Director UUID를 확인한다.
 
@@ -114,13 +99,13 @@ BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한
 >
 > `$ bosh status`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_10.png)
+> ![](../../../.gitbook/assets/mysql_aws_10.png)
 
 #### Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\)
 
 > `$ bosh stemcells`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_11.png)
+> ![](../../../.gitbook/assets/mysql_aws_11.png)
 >
 > Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
 
@@ -296,8 +281,6 @@ resource_pools:         # 배포시 사용하는 resource pools를 명시하며 
 
 > `$ bosh deployment {Deployment manifest 파일 PATH}`  
 > `$ bosh deployment openpaas-mysql-vsphere-1.0.yml`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_12.png)
 
 #### MySQL 서비스팩을 배포한다.
 
@@ -305,15 +288,15 @@ resource_pools:         # 배포시 사용하는 resource pools를 명시하며 
 >
 > ※ 40분 ~ 1시간 정도 소요된다.
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_13.png)
+> ![](../../../.gitbook/assets/mysql_aws_13.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_14.png)
+> ![](../../../.gitbook/assets/mysql_aws_14.png)
 
 #### 배포된 MySQL 서비스팩을 확인한다.
 
 > `$bosh vms openpaas-mysql-service`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_15.png)
+> ![](../../../.gitbook/assets/mysql_aws_15.png)
 
 ### 2.4. MySQL 서비스 브로커 등록
 
@@ -323,8 +306,6 @@ Mysql 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩
 #### 서비스 브로커 목록을 확인한다.
 
 > `$ cf service-brokers`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_16.png)
 
 #### MySQL 서비스 브로커를 등록한다.
 
@@ -333,20 +314,16 @@ Mysql 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩
 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다. 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다. 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.
 
 > `$cf create-service-broker mysql-service-broker admin cloudfoundry http://10.0.0.95:8080`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_17.png)
 
 #### 등록된 MySQL 서비스 브로커를 확인한다.
 
 > `$ cf service-brokers`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_18.png)
 
 #### 접근 가능한 서비스 목록을 확인한다.
 
 > `$ cf service-access`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_19.png)
+>
 >
 > 서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
 
@@ -355,8 +332,6 @@ Mysql 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩
 > `$ cf enable-service-access Mysql-DB`
 >
 > `$ cf service-access`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_20.png)
 
 ## 3. MySQL 연동 Sample Web App 설명
 
@@ -378,8 +353,6 @@ Sample Web App 구조는 다음과 같다.
 #### OpenPaaS-Sample-Apps을 다운로드 받고 Service 폴더안에 있는 MySQL Sample Web App인 hello-spring-mysql를복사한다.
 
 > `$ls -all`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_21.png)
 
 ### 3.2. 개방형 클라우드 플랫폼에서 서비스 신청
 
@@ -390,8 +363,6 @@ Sample Web App에서 MySQL 서비스를 사용하기 위해서는 서비스 신�
 #### 먼저 개방형 클라우드 플랫폼 Marketplace에서 서비스가 있는지 확인을 한다.
 
 > `$cf marketplace`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_22.png)
 
 #### Marketplace에서 원하는 서비스가 있으면 서비스 신청\(Provision\)을 한다.
 
@@ -400,14 +371,10 @@ Sample Web App에서 MySQL 서비스를 사용하기 위해서는 서비스 신�
 > 서비스명 : p-mysql로 Marketplace에서 보여지는 서비스 명칭이다. 서비스플랜 : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. MySQL 서비스는 10 connection, 100 connection 를 지원한다. 내 서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.
 >
 > \`$ cf create-service 'Mysql-DB' Mysql-Plan2-100con mysql-service-instance
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_23.png)
 
 #### 생성된 MySQL 서비스 인스턴스를 확인한다.
 
 > `$ cf services`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_24.png)
 
 ### 3.3. Sample Web App에 서비스 바인드 신청 및 App 확인
 
@@ -435,32 +402,26 @@ path: target/hello-spring-mysql-1.0.0-BUILD-SNAPSHOT.war      #배포하는 App 
 > --no-start: App 배포시 구동은 하지 않는다.
 >
 > `$ cf push --no-start`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_25.png)
 
 #### 배포된 Sample App을 확인하고 로그를 수행한다.
 
 > `$ cf apps`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_26.png)
+>
 >
 > `$ cf logs {배포된 App명}`
 >
 > `$ cf logs hello-spring-mysql`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_27.png)
 
 #### Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다.
 
 > `$ cf bind-service hello-spring-mysql mysql-service-instance`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_28.png)
 
 #### 바인드가 적용되기 위해서 App을 재기동한다.
 
 > `$ cf restart hello-spring-mysql`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_29.png)
+>
 >
 > \(참고\) 바인드 후 App구동시 Mysql 서비스 접속 에러로 App 구동이 안될 경우 보안 그룹을 추가한다.
 
@@ -481,8 +442,6 @@ path: target/hello-spring-mysql-1.0.0-BUILD-SNAPSHOT.war      #배포하는 App 
 #### 보안 그룹을 생성한다.
 
 > `$ cf create-security-group p-mysql rule.json`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_30.png)
 
 #### 모든 App에 Mysql 서비스를 사용할수 있도록 생성한 보안 그룹을 적용한다.
 
@@ -493,8 +452,6 @@ path: target/hello-spring-mysql-1.0.0-BUILD-SNAPSHOT.war      #배포하는 App 
 #### App을 리부팅 한다.
 
 > `$ cf restart hello-spring-mysql`
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_32.png)
 
 #### App이 정상적으로 MySQL 서비스를 사용하는지 확인한다.
 
@@ -502,11 +459,9 @@ path: target/hello-spring-mysql-1.0.0-BUILD-SNAPSHOT.war      #배포하는 App 
 >
 > `$ curl hello-spring-mysql.52.71.64.39.xip.io`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_33.png)
+>
 >
 > 브라우져에서 확인
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_AWS_34.png)
 
 ## 4. MySQL Client 툴 접속
 
@@ -519,32 +474,26 @@ HeidiSQL 프로그램은 무료로 사용할 수 있는 오픈소스 소프트�
 #### HeidiSQL을 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다.
 
 > [http://www.heidisql.com/download.php](http://www.heidisql.com/download.php)
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_01.png)
 
 #### 다운로드한 설치파일을 실행한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_02.png)
+>
 
 #### HeidSQL 설치를 위한 안내사항이다. Next 버튼을 클릭한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_03.png)
+>
 
 #### 프로그램 라이선스에 관련된 내용이다. 동의\(I accept the agreement\)에 체크 후 Next 버튼을 클릭한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_04.png)
+>
 
 #### HeidiSQL을 설치할 경로를 설정 후 Next 버튼을 클릭한다.
 
 > 별도의 경로 설정이 필요 없을 경우 default로 C드라이브 Program Files 폴더에 설치가 된다.
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_05.png)
 
 #### 설치 완료 후 시작메뉴에 HeidiSQL 바로가기 아이콘의 이름을 설정하는 과정이다.
 
 > Next 버튼을 클릭하여 다음 과정을 진행한다.
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_06.png)
 
 #### 체크박스가 4개가 있다. 아래의 경우를 고려하여 체크 및 해제를 한다.
 
@@ -554,52 +503,42 @@ HeidiSQL 프로그램은 무료로 사용할 수 있는 오픈소스 소프트�
 > heidisql 공식 홈페이지로 자동으로 버전을 전송할 경우
 >
 > 체크박스에 체크 설정/해제를 완료했다면 Next 버튼을 클릭한다.
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_07.png)
 
 #### 설치를 위한 모든 설정이 한번에 출력된다. 확인 후 Install 버튼을 클릭하여 설치를 진행한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_08.png)
+>
 
 #### Finish 버튼 클릭으로 설치를 완료한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_09.png)
+>
 
 #### HeidiSQL을 실행했을 때 처음 뜨는 화면이다. 이 화면에서 Server에 접속하기 위한 profile을 설정/저장하여 접속할 수 있다. 신규 버튼을 클릭한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_10.png)
+>
 
 #### 어떤 Server에 접속하기 위한 Connection 정보인지 별칭을 입력한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_11.png)
+>
 
 #### 네트워크 유형의 목록에서 MySQL\(SSH tunel\)을 선택한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_12.png)
+>
 
 #### 아래 붉은색 영역에 접속하려는 서버 정보를 모두 입력한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_13.png)
->
 > 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다.
 >
 > **예\)** $cf env hello-spring-mysql
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_14.png)
 
 #### - SSH 터널 탭을 클릭하고 OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다. plink.exe 위치 입력은 Putty에서 제공하는 plink.exe 실행 위치를 넣어주고 만일 해당 파일이 없을 경우 plink.exe 내려받기 링크를 클릭하여 다운받는다. 로컬 포트 정보는 임의로 넣고 열기 버튼을 클릭하면 Mysql 데이터베이스에 접속한다.
 
 > \(참고\) 만일 개인 키로 접속이 가능한 경우에는 aws용 Open PaaS Mysql 서비스팩 설치 가이드를 참고한다.
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_15.png)
 
 #### 접속이 완료되면 좌측에 스키마 정보가 나타난다. 하지만 초기설정은 테이블, 뷰, 프로시져, 함수, 트리거, 이벤트 등 모두 섞여 있어서 한눈에 구분하기가 힘들어서 접속한 DB 별칭에 마우스 오른쪽 클릭 후 "트리 방식 옵션" - "객체를 유형별로 묶기"를 클릭하면 아래 화면과 같이 각 유형별로 구분이된다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_16.png)
+>
 
 #### 우측 화면에 쿼리 탭을 클릭하여 Query문을 작성한 후 실행 버튼\(삼각형\)을 클릭한다.
 
 > 쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다.
->
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mysql/mysql_aws/mysql_HeidiSQL_17.png)
 
