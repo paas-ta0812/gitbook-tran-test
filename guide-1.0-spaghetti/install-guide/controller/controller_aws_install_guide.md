@@ -59,7 +59,7 @@ Open PaaS Controller를 설치하기 전에 IaaS\(AWS\) 환경이 정상적으�
 
 #### 2.2.1. Dashboard\(Console\)
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image001.jpeg)
+![](../../../.gitbook/assets/image%20%2841%29.png)
 
 **\[그림출처\]: Open PaaS 사업단 개발환경**
 
@@ -69,17 +69,19 @@ AWS Dashboard\(Console\)으로 정상 접속되어야 하고, Open PaaS Controll
 
 SSH, HTTP, HTTPS, DNS Protocol을 받을 수 있고, 모든 통신 Protocol을 엑세스 할 수 있도록 Security Group을 설정한다.\(주의: 내부 네트워크 구간에서는 모든 Procotol이 사용 가능하도록 구성해야 한다.\)
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image002.jpeg)
+![](../../../.gitbook/assets/image%20%288%29.png)
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image003.jpeg)
+![](../../../.gitbook/assets/image%20%2839%29.png)
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image004.jpeg)
+![](../../../.gitbook/assets/image%20%2848%29.png)
+
+_\*\*\*\*_
 
 _**PaaS-TA v2.0 이상의 버전에서는 다음을 참조하여 시큐리티 그룹을 설정한다.**_ [https://docs.cloudfoundry.org/deploying/openstack/security\_group.html](https://docs.cloudfoundry.org/deploying/openstack/security_group.html)
 
 #### 2.3. Bosh Server 및 Bosh CLI
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image005.png)
+![](../../../.gitbook/assets/image%20%2852%29.png)
 
 \[그림출처\]: Open PaaS 사업단 개발환경
 
@@ -126,7 +128,7 @@ $TTL    604800
 
 NSLOOKUP 등으로 DNS Server에 Platform Domain이 정상 등록 되었는지 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image006.png)
+![](../../../.gitbook/assets/image%20%2836%29.png)
 
 ### 2.5. OP CLI
 
@@ -138,7 +140,7 @@ Open PaaS 설치 패키지 내에 포함되어 있는 OP CLI 압축 파일을 �
 
 “cf” 명령어를 입력하면 아래와 같은 Help 화면이 출력됨을 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image007.png)
+![](../../../.gitbook/assets/image%20%2822%29.png)
 
 ## 3. Open PaaS Controller 설치
 
@@ -154,7 +156,7 @@ Open PaaS 설치 패키지 내에 포함되어 있는 OP CLI 압축 파일을 �
 
 Release Upload는 상황에 따라 다소 차이는 있으나 보통 20-30분 정도 소요가 되며, 정상 Upload가 되면 아래의 그림과 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image008.png)
+![](../../../.gitbook/assets/image%20%2858%29.png)
 
 \[주의\] Release Upload 과정에서 작업장비의 “/tmp” 폴더의 사이즈가 작을 경우 압축파일을 풀거나 묶을 때 에러가 발생할 수 있으므로, 10GB 이상 Free Size가 있는지를 확인해야 한다.
 
@@ -162,7 +164,7 @@ Bosh Sever에 Release가 정상적으로 Upload 되었는지는 “bosh releases
 
 `bosh releases`
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image009.png)
+![](../../../.gitbook/assets/image%20%2847%29.png)
 
 ### 3.2 Stemcell Upload
 
@@ -176,7 +178,7 @@ Bosh Sever에 Release가 정상적으로 Upload 되었는지는 “bosh releases
 
 Stemcell Upload는 상황에 따라 다소 차이는 있으나 보통 5-10분 정도 소요가 되며, 정상 Upload가 되면 아래의 그림과 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image010.png)
+![](../../../.gitbook/assets/image%20%2812%29.png)
 
 \[주의\] Stemcell Upload 과정에서 작업장비의 “/tmp” 폴더의 사이즈가 작을 경우 압축파일을 풀거나 묶을 때 에러가 발생할 수 있으므로, 10GB 이상 Free Size가 있는지를 확인해야 한다.
 
@@ -184,7 +186,7 @@ Bosh Sever에 Stemcell이 정상적으로 Upload 되었는지는 “bosh stemcel
 
 `bosh stemcells`
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image011.png)
+![](../../../.gitbook/assets/image%20%2832%29.png)
 
 ### 3.3. Deployment Manifest
 
@@ -1500,7 +1502,7 @@ properties:
 
 “bosh deployment” 명령어로 생성한 Deployment Manifest File을 지정하고, 아래의 그림과 같이 동일한 명령어로 정상 지정 되었는지를 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image012.png)
+![](../../../.gitbook/assets/image%20%2842%29.png)
 
 #### 3.4.2. Open PaaS Controller Deploy
 
@@ -1510,7 +1512,7 @@ properties:
 
 보통 설치 과정은 1-2시간 정도가 소요되며 정상적으로 설치가 완료되면 아래 그림과 같은 메세지를 출력하게 된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image013.png)
+![](../../../.gitbook/assets/image%20%2835%29.png)
 
 ### 3.5. 설치형상 확인
 
@@ -1520,7 +1522,7 @@ properties:
 
 아래 그림과 같이 Deployment Name, Virtual Machine, IP 주소 등의 정보를 확인할 수 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image014.png)
+![](../../../.gitbook/assets/image%20%2825%29.png)
 
 ## 4. 설치 검증
 
@@ -1552,11 +1554,11 @@ CF Target을 지정하고, Login을 수행한다. 이 때 계정은 admin/admin�
 
 Application이 정상 Deploy가 되면 아래와 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image015.png)
+![](../../../.gitbook/assets/image%20%2820%29.png)
 
 ### 4.3. Application Access
 
 Deploy한 Application URL을 Browser 또는 curl 명령어로 Access하여 정상 접근 되는지를 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_aws_image016.png)
+![](../../../.gitbook/assets/image%20%2819%29.png)
 
