@@ -837,7 +837,7 @@ monit summary
 
 monit quit etcd까지 다 실행하고 monit summary를 실행하면 ‘etcd’가 running으로 바뀐 것을 볼 수 있다.
 
-> ![](../../../.gitbook/assets/image%20%2887%29.png)
+> ![](../../../.gitbook/assets/image%20%2888%29.png)
 
 ‘etcd’를 확인한 후 종료하고 OpenStack 서버에서 다음과 같은 명령어를 실행하면 database\_z1/0가 running 상태인 것을 확인할 수 있다.
 
@@ -877,7 +877,7 @@ cf push “application-name” –i “instance_count” –m “memory_size”
 
 ※ Application 배포시 Disk 관련 옵션 \(-k\)을 지정하지 않은 경우에는 기본적으로 6G 크기의 디스크 사용량이 지정된다.
 
-> ![](../../../.gitbook/assets/image%20%2880%29.png)![](../../../.gitbook/assets/image%20%2888%29.png)![](../../../.gitbook/assets/image%20%2861%29.png)
+> ![](../../../.gitbook/assets/image%20%2881%29.png)![](../../../.gitbook/assets/image%20%2889%29.png)![](../../../.gitbook/assets/image%20%2861%29.png)
 
 ### 4.3. Application Access
 

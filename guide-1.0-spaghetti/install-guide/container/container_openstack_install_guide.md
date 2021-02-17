@@ -71,7 +71,7 @@ Release Upload는 상황에 따라 다소 차이는 있으나 보통 20-30분 �
 
 Bosh Sever에 Release가 정상적으로 Upload 되었는지는 “bosh releases” 명령으로 확인한다. bosh releases
 
-![](../../../.gitbook/assets/image%20%2891%29.png)
+![](../../../.gitbook/assets/image%20%2892%29.png)
 
 ### 3.2. Deployment Manifest 파일 수정하기
 
@@ -769,7 +769,7 @@ bosh deployment openpaas-container-openstack-1.0.yml
 
 “bosh deployment” 명령어로 생성한 Deployment Manifest File을 지정하고, 아래의 그림과 같이 동일한 명령어로 정상 지정 되었는지를 확인한다
 
-![](../../../.gitbook/assets/image%20%2889%29.png)
+![](../../../.gitbook/assets/image%20%2890%29.png)
 
 ### 3.4. Bosh Deploy
 
@@ -803,7 +803,7 @@ Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &g
 
 Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &gt; database\_z1/0 \(canary\). Failed: ‘database\_z1/0’ is not running after update”라는 에러가 발생하는 경우가 있다.
 
-![](../../../.gitbook/assets/image%20%2881%29.png)
+![](../../../.gitbook/assets/image%20%2882%29.png)
 
 다음과 같이 bosh ssh를 통해 database\_z1/0에 접근한다. “Choose an instance”에서 database\_z1/0을 선택하면 된다.
 
@@ -811,7 +811,7 @@ Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &g
 
 다음 그림과 같이 sudo su를 통해 접속하면 ‘etcd’가 ‘not monitored’ 상태인 것을 확인할 수 있다.
 
-![](../../../.gitbook/assets/image%20%2879%29.png)
+![](../../../.gitbook/assets/image%20%2880%29.png)
 
 monit summary를 통해 먼저 프로세스의 상태를 확인한다. 프로세스를 없애고 다시 상태를 확인한다. 다음의 명령어들을 하나씩 실행하면서 프로세스의 상태를 확인한다. monit summary
 
