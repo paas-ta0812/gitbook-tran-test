@@ -58,7 +58,7 @@
 
 #### 2.2.1. 데이터센터/클러스터/리소스풀
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image002.png)
+![](../../../.gitbook/assets/image%20%2820%29.png)
 
 **\[그림출처\]: Open PaaS 사업단 개발환경**
 
@@ -66,7 +66,7 @@
 
 ### 2.3. Bosh Server 및 Bosh CLI
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image003.png)
+![](../../../.gitbook/assets/image%20%2817%29.png)
 
 **\[그림출처\]: Open PaaS 사업단 개발환경**
 
@@ -106,7 +106,7 @@ $TTL    604800
 
 NSLOOKUP 등으로 DNS Server에 Platform Domain이 정상 등록 되었는지 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image004.png)
+![](../../../.gitbook/assets/image%20%2866%29.png)
 
 ### 2.5. OP CLI
 
@@ -118,7 +118,7 @@ Open PaaS 설치 패키지 내에 포함되어 있는 OP CLI 압축 파일을 �
 
 “cf” 명령어를 입력하면 아래와 같은 Help 화면이 출력됨을 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image005.png)
+![](../../../.gitbook/assets/image%20%2844%29.png)
 
 ## 3. Open PaaS Controller 설치
 
@@ -134,14 +134,14 @@ Open PaaS 설치 패키지 내에 포함되어 있는 OP CLI 압축 파일을 �
 
 Release Upload는 상황에 따라 다소 차이는 있으나 보통 20-30분 정도 소요가 되며, 정상 Upload가 되면 아래의 그림과 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image006.png)
+![](../../../.gitbook/assets/image%20%2859%29.png)
 
 \[주의\] Release Upload 과정에서 작업장비의 “/tmp” 폴더의 사이즈가 작을 경우 압축파일을 풀거나 묶을 때 에러가 발생할 수 있으므로, 10GB 이상 Free Size가 있는지를 확인해야 한다.
 
 Bosh Sever에 Release가 정상적으로 Upload 되었는지는 “bosh releases” 명령으로 확인한다.  
  `$ bosh releases`
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image007.png)
+![](../../../.gitbook/assets/image%20%2823%29.png)
 
 ### 3.2. Stemcell Upload
 
@@ -155,13 +155,13 @@ Bosh Sever에 Release가 정상적으로 Upload 되었는지는 “bosh releases
 
 Stemcell Upload는 상황에 따라 다소 차이는 있으나 보통 5-10분 정도 소요가 되며, 정상 Upload가 되면 아래의 그림과 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image008.png)
+![](../../../.gitbook/assets/image%20%2882%29.png)
 
 \[주의\] Stemcell Upload 과정에서 작업장비의 “/tmp” 폴더의 사이즈가 작을 경우 압축파일을 풀거나 묶을 때 에러가 발생할 수 있으므로, 10GB 이상 Free Size가 있는지를 확인해야 한다.
 
 Bosh Sever에 Stemcell이 정상적으로 Upload 되었는지는 “bosh stemcells” 명령으로 확인한다. `$ bosh stemcells`
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image009.png)
+![](../../../.gitbook/assets/image%20%2878%29.png)
 
 ### 3.3. Deployment Manifest
 
@@ -1498,7 +1498,7 @@ properties:
 
 “bosh deployment” 명령어로 생성한 Deployment Manifest File을 지정하고, 아래의 그림과 같이 동일한 명령어로 정상 지정 되었는지를 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image010.png)
+![](../../../.gitbook/assets/image%20%2837%29.png)
 
 #### 3.4.2. Open PaaS Controller Deploy
 
@@ -1508,7 +1508,7 @@ properties:
 
 보통 설치 과정은 1-2시간 정도가 소요되며 정상적으로 설치가 완료되면 아래 그림과 같은 메세지를 출력하게 된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image011.png)
+![](../../../.gitbook/assets/image%20%2867%29.png)
 
 ### 3.5. 설치형상 확인
 
@@ -1518,7 +1518,7 @@ properties:
 
 아래 그림과 같이 Deployment Name, Virtual Machine, IP 주소 등의 정보를 확인할 수 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image012.png)
+![](../../../.gitbook/assets/image%20%2863%29.png)
 
 ## 4. 설치 검증
 
@@ -1550,11 +1550,11 @@ CF Target을 지정하고, Login을 수행한다. 이 때 계정은 admin/admin�
 
 Application이 정상 Deploy가 되면 아래와 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image013.png)
+![](../../../.gitbook/assets/image%20%2848%29.png)
 
 ### 4.3. Application Access
 
 Deploy한 Application URL을 Browser 또는 curl 명령어로 Access하여 정상 접근 되는지를 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-controller/controller_vsphere_image014.png)
+![](../../../.gitbook/assets/image%20%2874%29.png)
 
