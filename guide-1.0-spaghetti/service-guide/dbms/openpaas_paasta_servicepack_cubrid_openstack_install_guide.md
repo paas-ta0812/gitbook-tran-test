@@ -450,11 +450,7 @@ Sample Web App에서 Cubrid 서비스를 사용하기 위해서는 서비스 신
 
 Application에 바인딩된 Cubrid 서비스 연결정보는 Private IP로 구성되어 있기 때문에 Cubrid Client 툴에서 직접 연결할수 없다. 따라서 Cubrid Client 툴에서 SSH 터널, Proxy 터널 등을 제공하는 툴을 사용해서 연결하여야 한다. 본 가이드는 무료 SSH 및 텔넷 접속 툴인 Putty를 이용하여 SSH 터널을 통해 연결 하는 방법을 제공하며 Cubrid Client 툴로써는 Cubrid에서 제공하는 Cubrid Manager로 가이드한다. Cubrid Manager 에서 접속하기 위해서 먼저 SSH 터널링 할수 있는 VM 인스턴스를 생성해야한다. 이 인스턴스는 SSH로 접속이 가능해야 하고 접속 후 Open PaaS 에 설치한 서비스팩에 Private IP 와 해당 포트로 접근이 가능하도록 시큐리티 그룹을 구성해야 한다. 이 부분은 OpenStack관리자 및 OpenPaaS 운영자에게 문의하여 구성한다.
 
-### 
-
 ### 4.1. Putty 다운로드 및 터널링 <a id="4-1-putty"></a>
-
-‌
 
 Putty 프로그램은 SSH 및 텔넷 접속을 할 수 있는 무료 소프트웨어이다.‌
 
