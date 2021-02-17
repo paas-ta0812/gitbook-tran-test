@@ -49,7 +49,7 @@
 
 확인하는 방법은 bosh deployments를 통해 배포된 리스트 목록으로 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image01.png)
+![](../../../.gitbook/assets/image%20%2815%29.png)
 
 ## 3. Open Paas Container 설치
 
@@ -65,13 +65,13 @@ bosh upload release $INSTALL_PACKAGE/OpenPaaS-Container/openpaas-container -1.0.
 
 Release Upload는 상황에 따라 다소 차이는 있으나 보통 20-30분 정도 소요가 되며, 정상 Upload가 되면 아래의 그림과 같은 메시지가 출력된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image02.png)
+![](../../../.gitbook/assets/image%20%2812%29.png)
 
 \[주의\] Release Upload 과정에서 작업장비의 “/tmp” 폴더의 사이즈가 작을 경우 압축파일을 풀거나 묶을 때 에러가 발생할 수 있으므로, 10GB 이상 Free Size가 있는지를 확인해야 한다.
 
 Bosh Sever에 Release가 정상적으로 Upload 되었는지는 “bosh releases” 명령으로 확인한다. bosh releases
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image03.png)
+![](../../../.gitbook/assets/image%20%2831%29.png)
 
 ### 3.2. Deployment Manifest 파일 수정하기
 
@@ -769,7 +769,7 @@ bosh deployment openpaas-container-openstack-1.0.yml
 
 “bosh deployment” 명령어로 생성한 Deployment Manifest File을 지정하고, 아래의 그림과 같이 동일한 명령어로 정상 지정 되었는지를 확인한다
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image04.png)
+![](../../../.gitbook/assets/image%20%2829%29.png)
 
 ### 3.4. Bosh Deploy
 
@@ -779,7 +779,7 @@ Diego module에 대한 bosh upload 과정이 끝났으면, deploy 과정을 통�
 $ bosh deploy
 ```
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image05.png)
+![](../../../.gitbook/assets/image%20%2814%29.png)
 
 \[그림: bosh deploy 실행 결과\]
 
@@ -793,25 +793,25 @@ bosh vms
 
 아래 그림과 같이 Deployment Name, Virtual Machine, IP 주소 등의 정보를 확인할 수 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image06.png)
+![](../../../.gitbook/assets/image%20%284%29.png)
 
 ### 3.6. Trobleshooting
 
 Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &gt; database\_z1/0 \(canary\). Failed: Volume”이라는 에러가 발생하는 경우 사용하고 있는 OpenStack에 접속하여 리소스가 부족하지 않은지 확인해 보고 필요하지 않은 것들은 Delete를 해 준다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image07.png)
+![](../../../.gitbook/assets/image%20%2813%29.png)
 
 Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &gt; database\_z1/0 \(canary\). Failed: ‘database\_z1/0’ is not running after update”라는 에러가 발생하는 경우가 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image08.png)
+![](../../../.gitbook/assets/image%20%2826%29.png)
 
 다음과 같이 bosh ssh를 통해 database\_z1/0에 접근한다. “Choose an instance”에서 database\_z1/0을 선택하면 된다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image09.png)
+![](../../../.gitbook/assets/image%20%2820%29.png)
 
 다음 그림과 같이 sudo su를 통해 접속하면 ‘etcd’가 ‘not monitored’ 상태인 것을 확인할 수 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image10.png)
+![](../../../.gitbook/assets/image%20%2825%29.png)
 
 monit summary를 통해 먼저 프로세스의 상태를 확인한다. 프로세스를 없애고 다시 상태를 확인한다. 다음의 명령어들을 하나씩 실행하면서 프로세스의 상태를 확인한다. monit summary
 
@@ -829,11 +829,11 @@ monit summary
 
 monit quit etcd까지 다 실행하고 monit summary를 실행하면 ‘etcd’가 running으로 바뀐 것을 볼 수 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image11.png)
+![](../../../.gitbook/assets/image%20%2811%29.png)
 
 ‘etcd’를 확인한 후 종료하고 OpenStack 서버에서 다음과 같은 명령어를 실행하면 database\_z1/0가 running 상태인 것을 확인할 수 있다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image12.png)
+![](../../../.gitbook/assets/image%20%2823%29.png)
 
 ## 4. 설치 검증
 
@@ -869,7 +869,7 @@ cf push “application-name” –i “instance_count” –m “memory_size”
 
 CF-Release는 기본적으로 DEA 환경에 Application을 배포하기 때문에 Diego 환경에 Application을 배포한다. Application 업로드가 완료된 후에 아래 명령어를 실행해야 한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image13.png)
+![](../../../.gitbook/assets/image%20%2810%29.png)
 
 ```text
 cf start “application-name”
@@ -886,11 +886,11 @@ cf start “application-name”
 
 다음과 같이 cf apps를 통해 Deploy된 App을 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image14.png)
+![](../../../.gitbook/assets/image%20%2818%29.png)
 
 ### 4.3. Application Access
 
 Deploy한 Application URL을 Browser 또는 curl 명령어로 Access하여 정상 접근 되는지를 확인한다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-container/container-openstack-image15.png)
+![](../../../.gitbook/assets/image%20%2821%29.png)
 
