@@ -1416,9 +1416,9 @@ Application을 Deploy할 ORG와 Space를 생성하고, 해당하는 ORG/Space로
 
 ![](../../../.gitbook/assets/image%20%288%29.png)
 
-
-
 ![](../../../.gitbook/assets/image%20%2810%29.png)
+
+
 
  
 
