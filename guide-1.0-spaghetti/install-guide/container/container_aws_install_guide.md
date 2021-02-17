@@ -1320,25 +1320,25 @@ Diego module에 대한 bosh upload 과정이 끝났으면, deploy 과정을 통�
 
 > 아래 그림과 같이 Deployment Name, Virtual Machine, IP 주소 등의 정보를 확인할 수 있다.
 >
-> ![](../../../.gitbook/assets/image%20%286%29.png)
+> ![](../../../.gitbook/assets/image%20%287%29.png)
 
 ### 3.6. Trobleshooting
 
 > Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &gt; database\_z1/0 \(canary\). Failed: Volume”이라는 에러가 발생하는 경우 사용하고 있는 OpenStack에 접속하여 리소스가 부족하지 않은지 확인해 보고 필요하지 않은 것들은 Delete를 해 준다.
 >
-> ![](../../../.gitbook/assets/image%20%2811%29.png)
+> ![](../../../.gitbook/assets/image%20%2812%29.png)
 >
 > Container 파일을 Deploy를 한 후 다음 사진과 같이 “database\_z1 &gt; database\_z1/0 \(canary\). Failed: ‘database\_z1/0’ is not running after update”라는 에러가 발생하는 경우가 있다.
 >
-> ![](../../../.gitbook/assets/image%20%2812%29.png)
+> ![](../../../.gitbook/assets/image%20%2813%29.png)
 >
 > 다음과 같이 bosh ssh를 통해 database\_z1/0에 접근한다. “Choose an instance”에서 database\_z1/0을 선택하면 된다.
 >
-> ![](../../../.gitbook/assets/image%20%287%29.png)
+> ![](../../../.gitbook/assets/image%20%288%29.png)
 >
 > 다음 그림과 같이 sudo su를 통해 접속하면 ‘etcd’가 ‘not monitored’ 상태인 것을 확인할 수 있다.
 >
-> ![](../../../.gitbook/assets/image%20%2815%29.png)
+> ![](../../../.gitbook/assets/image%20%2816%29.png)
 >
 > monit summary를 통해 먼저 프로세스의 상태를 확인한다. 프로세스를 없애고 다시 상태를 확인한다. 다음의 명령어들을 하나씩 실행하면서 프로세스의 상태를 확인한다.
 
@@ -1358,11 +1358,11 @@ Diego module에 대한 bosh upload 과정이 끝났으면, deploy 과정을 통�
 
 > monit quit etcd까지 다 실행하고 monit summary를 실행하면 ‘etcd’가 running으로 바뀐 것을 볼 수 있다.
 >
-> ![](../../../.gitbook/assets/image%20%289%29.png)
+> ![](../../../.gitbook/assets/image%20%2810%29.png)
 >
 > ‘etcd’를 확인한 후 종료하고 OpenStack 서버에서 다음과 같은 명령어를 실행하면 database\_z1/0가 running 상태인 것을 확인할 수 있다.
 >
-> ![](../../../.gitbook/assets/image%20%2813%29.png)
+> ![](../../../.gitbook/assets/image%20%2814%29.png)
 
 ## 4. 설치 검증
 
@@ -1414,13 +1414,9 @@ Application을 Deploy할 ORG와 Space를 생성하고, 해당하는 ORG/Space로
 
   기본적으로 6G 크기의 디스크 사용량이 지정된다.
 
-![](../../../.gitbook/assets/image%20%288%29.png)
+![](../../../.gitbook/assets/image%20%289%29.png)![](../../../.gitbook/assets/image%20%2811%29.png)
 
-![](../../../.gitbook/assets/image%20%2810%29.png)
-
-
-
- 
+![](../../../.gitbook/assets/image%20%286%29.png)
 
 ### 4.3. Application Access
 
