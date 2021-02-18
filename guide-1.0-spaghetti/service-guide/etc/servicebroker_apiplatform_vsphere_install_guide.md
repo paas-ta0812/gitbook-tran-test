@@ -299,42 +299,42 @@ API 플랫폼 서비스팩으로 배포한 API 매니저에는 Public IP가 할�
 
 \(1\)다운로드한 Putty를 실행하고 Connection 메뉴를 열어 SSH 메뉴에서 Tunnels를 메뉴를 연다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image14.png)
+> ![](../../../.gitbook/assets/image14%20%282%29.png)
 
 \(2\) 터널링 정보를 입력한다.  
  ① Source port에 사용하지 않는 임의의 포트를 입력하고 ②번 Dynamic을 선택한 후, ③ Add 버튼을 눌러 추가한다. ④번 위치에서 D{입력한 포트}의 형태로 추가된 것을 확인한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image15.png)
+> ![](../../../.gitbook/assets/image15%20%283%29.png)
 
 \(3\) Putty 접속 정보를 입력한다.  
  ① Session 메뉴를 클릭하여 접속정보 설정 화면으로 이동하여 ② 배포한 API 매니저와 내부망으로 연결되어 있는 머신\(설치 환경에 따라 상이함\)의 Public IP를 입력한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image16.png)
+> ![](../../../.gitbook/assets/image16%20%281%29.png)
 
 \(4\) Putty 접속 및 로그인  
  Open 버튼을 클릭하여 해당 머신에 연결한다
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image17.png)
+> ![](../../../.gitbook/assets/image17%20%282%29.png)
 
 로그인 화면에서 로그인을 완료한 채로 접속을 유지해둔다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image18.png)
+> ![](../../../.gitbook/assets/image18%20%283%29.png)
 
 **2. Firefox 설정**
 
 \(1\) Mozila Firefox 브라우저를 실행하여 첫 화면 하단의 옵션 버튼을 클릭한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image19.jpeg)
+> ![](../../../.gitbook/assets/image19.jpeg)
 
 \(2\) 설정 창을 연다.  
  ① 고급 탭- ② 네트워크 탭- ③ 설정 버튼을 차례로 클릭하여 설정 창을 연다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image20.png)
+> ![](../../../.gitbook/assets/image20%20%282%29.png)
 
 \(3\) 연결 설정 정보를 입력하고 저장한다.  
  ① 프록시 수동설정에 체크하고 ② 화면과 같이 설정을 입력한다. 포트는 Putty 터널링 설정에서 입력한 Source Port와 동일한 포트를 입력한다. ③ 설정을 완료하였으면 확인 버튼을 눌러 저장한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image21.png)
+> ![](../../../.gitbook/assets/image21%20%282%29.png)
 
 **3. 터널링 설정 확인**
 
@@ -349,7 +349,7 @@ API 플랫폼 서비스팩으로 배포한 API 매니저에는 Public IP가 할�
 예) https://10.0.0.201:9443/carbon
 ```
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image22.png)
+> ![](../../../.gitbook/assets/image22%20%281%29.png)
 
 **1. API 매니저 접속 및 로그인**
 
@@ -364,13 +364,13 @@ API 플랫폼 서비스팩으로 배포한 API 매니저에는 Public IP가 할�
 
 ② 관리자 계정으로 로그인한다. 관리자 계정의 Username과 Password는 admin/admin이다. ※ API 매니저 관리자 대시보드\({API매니저 URL}:{API매니저 포트}/carbon\)에서 계정을 추가하고 권한을 설정하여 사용할 수도 있지만, 그에 대한 설명은 본 문서에서는 기술하지 않는다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image23.png)
+> ![](../../../.gitbook/assets/image23%20%281%29.png)
 
 **2. API 생성**
 
 ① 로그인이 완료되면 다음과 같은 화면을 확인할 수 있다. 최초 배포가 완료되면 API가 생성되지 않은 상태이므로 ②번의 New API 버튼이 화면에 보여진다. New API 버튼을 클릭하여 API 생성화면으로 이동한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image24.png)
+> ![](../../../.gitbook/assets/image24%20%281%29.png)
 
 **3. General Details 정의**
 
@@ -389,9 +389,9 @@ Version: 1.0.0
 
 &gt;
 
-※ ④번 Edit Swagger Definition 버튼을 클릭하여 다음의 [\[4. Resources 정의\]](servicebroker_apiplatform_vsphere_install_guide.md#DefineResources) 과정을 생략 할 수 있다. 이에 대한 설명은 [\[4. Resources 정의\]](servicebroker_apiplatform_vsphere_install_guide.md#DefineResources) 하단에 [\[Swagger 정의\]](servicebroker_apiplatform_vsphere_install_guide.md#DefineSwagger)로 첨부한다.
+※ ④번 Edit Swagger Definition 버튼을 클릭하여 다음의 [\[4. Resources 정의\]]() 과정을 생략 할 수 있다. 이에 대한 설명은 [\[4. Resources 정의\]]() 하단에 [\[Swagger 정의\]]()로 첨부한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image25.png)
+> ![](../../../.gitbook/assets/image25%20%282%29.png)
 
 **4. Resources 정의**
 
@@ -399,11 +399,11 @@ Version: 1.0.0
  ② 입력이 완료되었다면, Add New Resource 버튼을 클릭하여 Resource를 추가한다.  
 
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image26.png)
+> ![](../../../.gitbook/assets/image26%20%281%29.png)
 
 리소스를 추가하면 하단의 그림처럼 추가된 Resource가 화면에 나타난다. 그 중 GET 메소드의 리소스를 클릭하여 파라미터 세부사항을 정의한다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image27.png)
+> ![](../../../.gitbook/assets/image27%20%281%29.png)
 
 리소스를 클릭하면 파라미터 세부사항 입력란이 노출된다.  
  ① 추가하고자 하는 파라미터 명을 입력한다.  
@@ -419,10 +419,10 @@ Version: 1.0.0
 ④ 하단의 버튼 중, 좌측의 Save버튼을 클릭하여 저장하고 가운데 Implement 버튼을 클릭하여 다음단계인 Implement 단계로 진행한다.  
 
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image28.png)
+> ![](../../../.gitbook/assets/image28%20%282%29.png)
 
- ※ Swagger 정의  
- 상단의 [\[3. General Details 정의\]](servicebroker_apiplatform_vsphere_install_guide.md#DefineGeneralDetails)에서 푸른색 ④번 박스로 표시된 Edit Swagger Definition 버튼을 클릭하면 Swagger 수정이 가능하다. 다음과 같이 수정하고 Save버튼을 클릭하여 Resources를 정의한다. 이 방법을 통해 상단에 기술된 [\[4. Resources 정의\]](servicebroker_apiplatform_vsphere_install_guide.md#DefineResources) 절차를 생략할 수 있다.
+※ Swagger 정의  
+ 상단의 [\[3. General Details 정의\]]()에서 푸른색 ④번 박스로 표시된 Edit Swagger Definition 버튼을 클릭하면 Swagger 수정이 가능하다. 다음과 같이 수정하고 Save버튼을 클릭하여 Resources를 정의한다. 이 방법을 통해 상단에 기술된 [\[4. Resources 정의\]]() 절차를 생략할 수 있다.
 
 &gt;
 
@@ -499,7 +499,7 @@ authorizations:
  ④ 다음 단계인 Manage 화면으로 이동한다.  
 
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image29.png)
+> ![](../../../.gitbook/assets/image29%20%281%29.png)
 
 **6. Tier 선택**
 
@@ -508,7 +508,7 @@ authorizations:
  ③ Save & Publish 버튼을 클릭하여 저장하고 API를 배포한다.  
 
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image30.png)
+> ![](../../../.gitbook/assets/image30%20%282%29.png)
 
 **7. 배포 확인**
 
@@ -525,7 +525,7 @@ authorizations:
 
 ② 생성한 API가 배포되어 있음을 확인한다. 배포되지 않은 API는 Store 대시보드에 노출되지 않는다.
 
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image31.png)
+> ![](../../../.gitbook/assets/image31%20%281%29.png)
 
 ### 2.5. 플랫폼 서비스 브로커 등록
 
@@ -535,7 +535,7 @@ API 매니저\(API 플랫폼\)에 API 서비스가 정상적으로 등록 및 �
 
 > `$ cf service-brokers`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image32.png)
+> ![](../../../.gitbook/assets/image32%20%282%29.png)
 
 * API 플랫폼 서비스 브로커를 등록한다.
 
@@ -545,23 +545,23 @@ API 매니저\(API 플랫폼\)에 API 서비스가 정상적으로 등록 및 �
 >
 > `$ cf create-service-broker apiplatform-service-broker admin cloudfoundry http://10.30.60.200:8080`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image33.png)
+> ![](../../../.gitbook/assets/image33%20%281%29.png)
 
 * 등록된 API 플랫폼 서비스 브로커를 확인한다.
 
 > `$ cf service-brokers`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image34.png)
+> ![](../../../.gitbook/assets/image34%20%281%29.png)
 
 * 접근 가능한 서비스 목록을 확인한다.
 
 > `$ cf service-access`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image35.png)
+> ![](../../../.gitbook/assets/image35%20%282%29.png)
 >
 > 서비스 브로커 생성시 기본적으로 접근을 허용하지 않는다. access가 none인 것을 확인할 수 있다.
 
-※ [\[2.4 API 매니저에서 API 생성 및 배포\]](servicebroker_apiplatform_vsphere_install_guide.md#APICreatePublish) 장의 [\[6. Tier 선택\]](servicebroker_apiplatform_vsphere_install_guide.md#ChooseTier)을 보면 tier는 Unlimited 한 가지만 선택하도록 되어있다. 그럼에도 서비스 목록에 Unlimited와 Bronze 두 개의 플랜으로 서비스가 생기는 것은 서비스 브로커가 두 개의 플랜으로 서비스를 생성하도록 설계되어 있기 때문이다. 두개의 플랜 중 선택에 따라 API 호출 횟수가 제한된다.
+※ [\[2.4 API 매니저에서 API 생성 및 배포\]]() 장의 [\[6. Tier 선택\]]()을 보면 tier는 Unlimited 한 가지만 선택하도록 되어있다. 그럼에도 서비스 목록에 Unlimited와 Bronze 두 개의 플랜으로 서비스가 생기는 것은 서비스 브로커가 두 개의 플랜으로 서비스를 생성하도록 설계되어 있기 때문이다. 두개의 플랜 중 선택에 따라 API 호출 횟수가 제한된다.
 
 * 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. \(전체 조직\)
 
@@ -569,17 +569,17 @@ API 매니저\(API 플랫폼\)에 API 서비스가 정상적으로 등록 및 �
 >
 > `$ cf service-access`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image36.png)
+> ![](../../../.gitbook/assets/image36%20%281%29.png)
 
 * 서비스가 Marketplace에 등록된 것을 확인한다.
 
 > `$ cf marketplace`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image37.png)
+> ![](../../../.gitbook/assets/image37%20%282%29.png)
 
 ## 3. API 플랫폼 연동
 
-[\[2.4 API 매니저에서 API 생성 및 배포\]](servicebroker_apiplatform_vsphere_install_guide.md#APICreatePublish)에서 생성한 API 서비스를 샘플 App에 바인드하여, Vcap 환경설정 정보를 정상적으로 획득할 수 있는지를 확인함으로써 연동여부를 확인한다. 단순히 서비스 바인드만 진행하기 때문에 샘플 어플리케이션은 어떤 어플리케이션을 사용해도 무방하다.
+[\[2.4 API 매니저에서 API 생성 및 배포\]]()에서 생성한 API 서비스를 샘플 App에 바인드하여, Vcap 환경설정 정보를 정상적으로 획득할 수 있는지를 확인함으로써 연동여부를 확인한다. 단순히 서비스 바인드만 진행하기 때문에 샘플 어플리케이션은 어떤 어플리케이션을 사용해도 무방하다.
 
 ### 3.1. Sample Web App에 서비스 바인드 신청 및 App 확인
 
@@ -611,17 +611,17 @@ path: target/hello-java-1.0.war    #배포하는 App의 war 파일 경로
 
 > `$ cf push --no-start`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image38.png)
+> ![](../../../.gitbook/assets/image38%20%282%29.png)
 
 * 배포된 Sample App을 확인하고 로그를 수행한다.
 
 > `$ cf apps`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image39.png)
+> ![](../../../.gitbook/assets/image39%20%281%29.png)
 >
 > `$ cf logs hello-servlet-tomcat`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image40.png)
+> ![](../../../.gitbook/assets/image40%20%282%29.png)
 
 * 바인드할 서비스의 서비스 인스턴스를 생성한다.
 
@@ -631,19 +631,19 @@ path: target/hello-java-1.0.war    #배포하는 App의 war 파일 경로
 >
 > `$ cf create-service PhoneVerification Unlimited phoneverification-instance-unlimited`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image41.png)
+> ![](../../../.gitbook/assets/image41.png)
 
 * 생성된 API 플랫폼 서비스 인스턴스를 확인한다.
 
 > `$ cf services`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image42.png)
+> ![](../../../.gitbook/assets/image42%20%281%29.png)
 
 * 샘플앱과 생성한 서비스 인스턴스를 바인드 한다.
 
 > `$ cf bind-service hello-servlet-tomcat phoneverification-instance-unlimited`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image43.png)
+> ![](../../../.gitbook/assets/image43.png)
 
 ### 3.2. 서비스 바인드 확인
 
@@ -651,5 +651,5 @@ path: target/hello-java-1.0.war    #배포하는 App의 war 파일 경로
 
 > `$ cf env hello-servlet-tomcat`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image44.png)
+> ![](../../../.gitbook/assets/image44%20%281%29.png)
 
