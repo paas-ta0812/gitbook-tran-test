@@ -1,22 +1,5 @@
 # RabbitMQ 설치 가이드\(vSphere\)
 
-## Table of Contents
-
-1. [문서 개요](servicepack_rabbitmq_vsphere_install_guide.md#1)
-   * [1.1. 목적](servicepack_rabbitmq_vsphere_install_guide.md#1.1)
-   * [1.2. 범위](servicepack_rabbitmq_vsphere_install_guide.md#1.2)
-   * [1.3. 시스템 구성도](servicepack_rabbitmq_vsphere_install_guide.md#1.3)
-   * [1.4. 참고자료](servicepack_rabbitmq_vsphere_install_guide.md#1.4)
-2. \[RabbitMQ 서비스팩 설치\] \(\#2\)
-   * [2.1. 설치전 준비사항](servicepack_rabbitmq_vsphere_install_guide.md#2.1)
-   * [2.2. RabbitMQ 서비스 릴리즈 업로드](servicepack_rabbitmq_vsphere_install_guide.md#2.2)
-   * [2.3. RabbitMQ 서비스 Deployment 파일 수정 및 배포](servicepack_rabbitmq_vsphere_install_guide.md#2.3)
-   * [2.4. RabbitMQ 서비스 브로커 등록](servicepack_rabbitmq_vsphere_install_guide.md#2.4)
-3. [RabbitMQ 연동 Sample App 설명](servicepack_rabbitmq_vsphere_install_guide.md#3)
-   * [3.1. Sample App 구조](servicepack_rabbitmq_vsphere_install_guide.md#3.1)
-   * [3.2. 개방형 클라우드 플랫폼에서 서비스 신청](servicepack_rabbitmq_vsphere_install_guide.md#3.2)
-   * [3.3. Sample App에 서비스 바인드 신청 및 App 확인](servicepack_rabbitmq_vsphere_install_guide.md#3.3)
-
 ## 1. 문서 개요
 
 ### 1.1 목적
@@ -31,7 +14,7 @@
 
 본 문서의 설치된 시스템 구성도로써, RabbitMQ\(2대\), RabbitMQ 서비스 브로커, haproxy로 최소사항을 구성하였다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%281%29.png)
+![](../../../.gitbook/assets/rabbitmq_vsphere_-1-.png)
 
 | 구분 | 스펙 |
 | :--- | :--- |
@@ -67,25 +50,26 @@ OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-
 * OpenPaaS-Services 링크에 접속하여 RabbitMQ 서비스 릴리즈 openpaas-rabbitmq-release-1.0.tgz 파일을 다운로드한다.
 * 업로드할 openpaas-rabbitmq-release-1.0.tgz 파일을 확인한다.
 
-> $ ls –all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%282%29.png)
+> $ ls –all ![](../../../.gitbook/assets/rabbitmq_vsphere_-2-.png)
 
 * 업로드 되어 있는 릴리즈 목록을 확인한다.
 
-> $ bosh releases ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%283%29.png)
+> $ bosh releases ![](../../../.gitbook/assets/rabbitmq_vsphere_-3-.png)
 >
 > RabbitMQ 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
 
 * RabbitMQ 서비스 릴리즈 파일을 업로드한다.
 
 > $ bosh upload release {서비스 릴리즈 파일 PATH}  
->  $ bosh upload release openpaas-rabbitmq-release-beta-1.0.tgz ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%284%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%285%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%286%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%287%29.png)
+>  $ bosh upload release openpaas-rabbitmq-release-beta-1.0.tgz   
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-4-.png)  
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-5-.png)  
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-6-.png)  
+> ![](../../../.gitbook/assets/rabbitmq_vsphere_-7-.png)
 
 * 업로드 된 RabbitMQ 릴리즈를 확인한다.
 
-> $ bosh releases ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%288%29.png)
+> $ bosh releases ![](../../../.gitbook/assets/rabbitmq_vsphere_-8-.png)
 >
 > RabbitMQ 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
@@ -97,17 +81,17 @@ Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \
 * OpenPaaS-Deployment에 접속하여 폴더안에 있는 vSphere 용 RabbitMQ Deployment 화일인 openpaas-rabbitmq-vsphere.yml를 다운로드 한다.
 * 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-rabbitmq-vsphere.yml\)
 
-> $ ls –all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%289%29.png)
+> $ ls –all ![](../../../.gitbook/assets/rabbitmq_vsphere_-9-.png)
 
 * Director UUID를 확인한다.  
 
   BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인 할 수 있다.
 
-> $ bosh status ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2810%29.png)
+> $ bosh status ![](../../../.gitbook/assets/rabbitmq_vsphere_-10-.png)
 
 * Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3016 버전 사용\)
 
-> $ bosh stemcells ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2811%29.png)  
+> $ bosh stemcells ![](../../../.gitbook/assets/rabbitmq_vsphere_-11-.png)  
 >   
 >  Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3016 버전을 업로드를 해야 한다.
 
@@ -399,16 +383,16 @@ resource_pools:                     # 배포시 사용하는 resource pools를 �
 * Deploy 할 deployment manifest 파일을 BOSH 에 지정한다.
 
 > $ bosh deployment {Deployment manifest 파일 PATH}  
->  $ bosh deployment openpaas-rabbitmq-vsphere.yml ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2812%29.png)
+>  $ bosh deployment openpaas-rabbitmq-vsphere.yml ![](../../../.gitbook/assets/rabbitmq_vsphere_-12-.png)
 
 * RabbitMQ 서비스팩을 배포한다.
 
-> $ bosh deploy ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2813%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2814%29.png)
+> $ bosh deploy ![](../../../.gitbook/assets/rabbitmq_vsphere_-13-.png)  
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-14-.png)
 
 * 배포된 RabbitMQ 서비스팩을 확인한다.
 
-> $ bosh vms ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2815%29.png)
+> $ bosh vms ![](../../../.gitbook/assets/rabbitmq_vsphere_-15-.png)
 
 ### 2.4 RabbitMQ 서비스 브로커 등록
 
@@ -417,7 +401,7 @@ RabbitMQ 서비스팩 배포가 완료 되었으면 Application에서 서비스 
 
 * 서비스 브로커 목록을 확인한다.
 
-> $ cf service-brokers ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2816%29.png)
+> $ cf service-brokers ![](../../../.gitbook/assets/rabbitmq_vsphere_-16-.png)
 
 * RabbitMQ 서비스 브로커를 등록한다.
 
@@ -430,21 +414,21 @@ RabbitMQ 서비스팩 배포가 완료 되었으면 Application에서 서비스 
 > - 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.
 >
 > $ cf create-service-broker rabbitmq-service-broker admin admin http://10.30.40.181:4567  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2817%29.png)
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-17-.png)
 
 * 등록된 RabbitMQ 서비스 브로커를 확인한다.
 
-> $ cf service-brokers ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2818%29.png)
+> $ cf service-brokers ![](../../../.gitbook/assets/rabbitmq_vsphere_-18-.png)
 
 * 접근 가능한 서비스 목록을 확인한다.
 
-> $ cf service-access ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2819%29.png)  
+> $ cf service-access ![](../../../.gitbook/assets/rabbitmq_vsphere_-19-.png)  
 >  서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
 
 * 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. \(전체 조직\)
 
 > $ cf enable-service-access p-rabbitmq  
->  $ cf service-access ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2820%29.png)
+>  $ cf service-access ![](../../../.gitbook/assets/rabbitmq_vsphere_-20-.png)
 
 ## 3. RabbitMQ 연동 Sample App 설명
 
@@ -466,7 +450,7 @@ Sample App 구조는 다음과 같다.
 * OpenPaaS-Sample-Apps에 접속하여 Service 폴더안에 있는 RabbitMQ Sample Web App인 rabbit-labrat를 다운로드 한다.
 * 다운로드 한 Sample App을 확인한다.
 
-> $ ls -all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2821%29.png)
+> $ ls -all ![](../../../.gitbook/assets/rabbitmq_vsphere_-21-.png)
 
 ### 3.2 개방형 클라우드 플랫폼에서 서비스 신청
 
@@ -475,7 +459,7 @@ Sample App에서 RabbitMQ 서비스를 사용하기 위해서는 서비스 신�
 
 * 먼저 개방형 클라우드 플랫폼 Marketplace에서 서비스가 있는지 확인을 한다.
 
-> $ cf marketplace ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2822%29.png)
+> $ cf marketplace ![](../../../.gitbook/assets/rabbitmq_vsphere_-22-.png)
 
 * Marketplace에서 원하는 서비스가 있으면 서비스 신청\(Provision\)을 한다.
 
@@ -486,11 +470,11 @@ Sample App에서 RabbitMQ 서비스를 사용하기 위해서는 서비스 신�
 > - 서비스플랜 : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. RabbitMQ 서비스는 standard plan만 지원한다.
 >
 > - 내서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다. &lt;/div&gt;$ cf create-service p-rabbitmq standard rabbitmq-service-instance&lt;/div&gt;  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2823%29.png)
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-23-.png)
 
 * 생성된 RabbitMQ 서비스 인스턴스를 확인한다.
 
-> $ cf services ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2824%29.png)
+> $ cf services ![](../../../.gitbook/assets/rabbitmq_vsphere_-24-.png)
 
 ### 3.3 Sample App에 서비스 바인드 신청 및 App 확인
 
@@ -511,29 +495,29 @@ Sample App에서 RabbitMQ 서비스를 사용하기 위해서는 서비스 신�
 
 * --no-start\(App 배포시 구동은 하지 않는다.\) 옵션으로 App을 배포한다.
 
-> $ cf push --no-start ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2825%29.png)
+> $ cf push --no-start ![](../../../.gitbook/assets/rabbitmq_vsphere_-25-.png)
 
 * 배포된 Sample App을 확인하고 로그를 수행한다.
 
-> $ cf apps ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2826%29.png)  
+> $ cf apps ![](../../../.gitbook/assets/rabbitmq_vsphere_-26-.png)  
 >   
 >  $ cf logs {배포된 App명}  
 >  $ cf logs lab-rat  
 >   
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2827%29.png)
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-27-.png)
 
 * Sample App에서 생성한 서비스 인스턴스 바인드 신청을 한다.
 
-> $ cf bind-service lab-rat rabbitmq-service-instance ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2828%29.png)
+> $ cf bind-service lab-rat rabbitmq-service-instance ![](../../../.gitbook/assets/rabbitmq_vsphere_-28-.png)
 
 * 바인드가 적용되기 위해서 App을 재기동한다.
 
-> $ cf restart lab-rat ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2829%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2830%29.png)
+> $ cf restart lab-rat ![](../../../.gitbook/assets/rabbitmq_vsphere_-29-.png)  
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-30-.png)
 
 * App이 정상적으로 RabbitMQ 서비스를 사용하는지 확인한다. \(curl로 확인\)
 
-> $ curl lab-rat.controller.open-paas.com ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2831%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2832%29.png)  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/rabbitmq/vsphere/rabbitmq_vsphere_%2833%29.png)
+> $ curl lab-rat.controller.open-paas.com ![](../../../.gitbook/assets/rabbitmq_vsphere_-31-.png)  
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-32-.png)  
+>  ![](../../../.gitbook/assets/rabbitmq_vsphere_-33-.png)
 
