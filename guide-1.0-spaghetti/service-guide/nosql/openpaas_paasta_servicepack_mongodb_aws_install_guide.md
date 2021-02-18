@@ -1,23 +1,19 @@
 # MongoDB 설치 가이드\(AWS\)
 
-1. [문서 개요](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#1)
-   * [1.1. 목적](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#2)
-   * [1.2. 범위](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#3)
-   * [1.3. 시스템 구성도](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#4)
-   * [1.4. 참고자료](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#5)
-2. [Mongodb 서비스팩 설치](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#6)
-   * [2.1. 설치전 준비사항](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#7)
-   * [2.2. Mongodb 서비스 릴리즈 업로드](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#8)
-   * [2.3. Mongodb 서비스 Deployment 파일 수정 및 배포](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#9)
-   * [2.4. Mongodb 서비스 브로커 등록](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#10)
-3. [Mongodb 연동 Sample App 설명](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#11)
-   * [3.1. Sample App 구조](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#12)
-   * [3.2. 개방형 클라우드 플랫폼에서 서비스 신청](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#13)
-   * [3.3. Sample App에 서비스 바인드 신청 및 App 확인](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#14)
-4. [Mongodb Client 툴 접속](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#15)
-   * [4.1. MongoChef 설치 및 연결](openpaas_paasta_servicepack_mongodb_aws_install_guide.md#16)
+## 1. 문서 개요
 
- \# 1. 문서 개요 \#\#\# 1.1. 목적 본 문서\(Mongodb 서비스팩 설치 가이드\)는 전자정부표준프레임워크 기반의 Open PaaS에서 제공되는 서비스팩인 Mongodb 서비스팩을 Bosh를 이용하여 설치 하는 방법과 Open PaaS의 SaaS 형태로 제공하는 Application 에서 Mongodb 서비스를 사용하는 방법을 기술하였다. \#\#\# 1.2. 범위 설치 범위는 Mongodb 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다. \#\#\# 1.3. 시스템 구성도 본 문서의 설치된 시스템 구성도입니다. Mongodb Server, Mongodb 서비스 브로커로 최소사항을 구성하였다. !\[시스템 구성도\]\[1-3-0-0\]
+### 1.1. 목적
+
+본 문서\(Mongodb 서비스팩 설치 가이드\)는 전자정부표준프레임워크 기반의 Open PaaS에서 제공되는 서비스팩인 Mongodb 서비스팩을 Bosh를 이용하여 설치 하는 방법과 Open PaaS의 SaaS 형태로 제공하는 Application 에서 Mongodb 서비스를 사용하는 방법을 기술하였다.
+
+### 1.2. 범위
+
+설치 범위는 Mongodb 서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
+
+### 1.3. 시스템 구성도
+
+본 문서의 설치된 시스템 구성도입니다. Mongodb Server, Mongodb 서비스 브로커로 최소사항을 구성하였다.  
+![](../../../.gitbook/assets/1-3-0-0-7-.png)
 
 | 구분 | 스펙 |
 | :--- | :--- |
@@ -26,22 +22,69 @@
 | Mongo Config | 2vCPU / 4GB RAM / 8GB Disk+16GB\(영구적 Disk\) |
 | Mongod | 2vCPU / 4GB RAM / 8GB Disk+16GB\(영구적 Disk\) |
 
- \#\#\# 1.4. 참고자료 \[\*\*http://bosh.io/docs\*\*\]\(http://bosh.io/docs\) \[\*\*http://docs.cloudfoundry.org/\*\*\]\(http://docs.cloudfoundry.org/\) \# 2. Mongodb 서비스팩 설치 \#\#\# 2.1. 설치전 준비사항 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다. 서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다. BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다. - OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-Services, OpenPaaS-Deployment, OpenPaaS-Sample-Apps\) - 다운로드 위치 &gt;OpenPaaS-Services : \*\*\*\* &gt;OpenPaaS-Deployment : \*\*\*\* &gt;OpenPaaS-Sample-Apps : \*\*\*\* \#\#\# 2.2. Mongodb 서비스 릴리즈 업로드 - OpenPaaS-Services을 다운로드 받고 폴더안에 있는 Mongodb 서비스 릴리즈 openpaas-mongodb-shard-1.0.tgz 파일을 확인한다. &gt;cd OpenPaaS-Services &gt;$ ls -all !\[2-2-0-0-1\] - 업로드 되어 있는 릴리즈 목록을 확인한다. &gt;$ bosh releases !\[2-2-4-0-1\] &gt;Mongodb 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+### 1.4. 참고자료
+
+[**http://bosh.io/docs**](http://bosh.io/docs)  
+[**http://docs.cloudfoundry.org/**](http://docs.cloudfoundry.org/)
+
+## 2. Mongodb 서비스팩 설치
+
+### 2.1. 설치전 준비사항
+
+본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.  
+서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.  
+BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
+
+* OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-Services, OpenPaaS-Deployment, OpenPaaS-Sample-Apps\)
+* 다운로드 위치
+
+> OpenPaaS-Services : [http://extdisk.hancom.com:8080/share.cgi?ssid=0IgH8sM](http://extdisk.hancom.com:8080/share.cgi?ssid=0IgH8sM)  
+> OpenPaaS-Deployment : [http://extdisk.hancom.com:8080/share.cgi?ssid=0YWXQzq](http://extdisk.hancom.com:8080/share.cgi?ssid=0YWXQzq)  
+> OpenPaaS-Sample-Apps : [http://extdisk.hancom.com:8080/share.cgi?ssid=0icB5ZW](http://extdisk.hancom.com:8080/share.cgi?ssid=0icB5ZW)
+
+### 2.2. Mongodb 서비스 릴리즈 업로드
+
+* OpenPaaS-Services을 다운로드 받고 폴더안에 있는 Mongodb 서비스 릴리즈 openpaas-mongodb-shard-1.0.tgz 파일을 확인한다.
+
+> cd OpenPaaS-Services  
+> $ ls -all  
+> ![](../../../.gitbook/assets/1-3-0-0-7-%20%281%29.png)
+
+* 업로드 되어 있는 릴리즈 목록을 확인한다.
+
+> $ bosh releases !\[2-2-4-0-1\]Mongodb 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
 
 * Mongodb 서비스 릴리즈를 업로드한다.
 
 > $ bosh upload release {서비스 릴리즈 파일 PATH}  
 > $ bosh upload release openpaas-mongodb-shard-1.0.tgz  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-2-6-0-1.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-2-6-1-1.png)
+> ![](../../../.gitbook/assets/2-2-6-0-1-4-.png)  
+> ![](../../../.gitbook/assets/2-2-6-1-1.png)
 
 * 업로드 된 Mongodb 릴리즈를 확인한다.
 
 > $ bosh releases  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-2-7-0-1.png)  
+> ![](../../../.gitbook/assets/2-2-7-0-1-4-.png)  
 > Mongodb 서비스 릴리즈가 업로드 되어 있는 것을 확인
 
- \#\#\# 2.3. Mongodb 서비스 Deployment 파일 수정 및 배포 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다. Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \(OS, BOSH agent\) 을 사용할것이며 Release \(Software packages, Config templates, Scripts\) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다. - OpenPaaS-Deployment을 다운로드 받고 폴더안에 있는 AWS용 Mongodb Deployment 화일인 openpaas-mongodb-shard-aws-1.0.yml 를 복사한다. - 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-mongodb-shard-aws-1.0.yml\) &gt;$ ls –all &gt;!\[2-3-0-0\] - Director UUID를 확인한다. BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다. &gt;$ bosh status &gt;!\[2-3-1-0\] - Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\) &gt;$ bosh stemcells &gt;!\[2-3-2-0\] &gt;Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
+### 2.3. Mongodb 서비스 Deployment 파일 수정 및 배포
+
+BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다. Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \(OS, BOSH agent\) 을 사용할것이며 Release \(Software packages, Config templates, Scripts\) 이름과 버전, VMs 용량, Jobs params 등을 정의가 되어 있다.
+
+* OpenPaaS-Deployment을 다운로드 받고 폴더안에 있는 AWS용 Mongodb Deployment 화일인 openpaas-mongodb-shard-aws-1.0.yml 를 복사한다.
+* 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-mongodb-shard-aws-1.0.yml\)
+
+> $ ls –all ![](../../../.gitbook/assets/2-3-0-0-8-.png)
+
+* Director UUID를 확인한다.
+
+  BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다.
+
+> $ bosh status ![](../../../.gitbook/assets/2-3-1-0-8-.png)
+
+* Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\)
+
+> $ bosh stemcells !\[2-3-2-0\]Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
 
 * openpaas-mongodb-shard-aws-1.0.yml Deployment 파일을 서버 환경에 맞게 수정한다.
 
@@ -306,27 +349,52 @@
 
 > $ bosh deployment {Deployment manifest 파일 PATH}  
 > $ bosh deployment openpaas-mongodb-shard-aws-1.0.yml  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-3-3-0.png)
+> ![](../../../.gitbook/assets/2-3-3-0-7-.png)
 
 * Mongodb 서비스팩을 배포한다.
 
 > $ bosh deploy  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-3-4-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-3-4-1.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-3-4-2.png)
+> ![](../../../.gitbook/assets/2-3-4-0-8-.png)  
+> ![](../../../.gitbook/assets/2-3-4-1-8-.png)  
+> ![](../../../.gitbook/assets/2-3-4-2.png)
 
 * 배포된 Mongodb 서비스팩을 확인한다.
 
-> $ bosh vms ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-3-5-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-3-5-1.png)
+> $ bosh vms ![](../../../.gitbook/assets/2-3-5-0-8-.png)  
+> ![](../../../.gitbook/assets/2-3-5-1-4-.png)
 
- \#\#\# 2.4. Mongodb 서비스 브로커 등록 Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Mongodb 서비스 브로커를 등록해 주어야 한다. 서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다. - 서비스 브로커 목록을 확인한다. &gt;$ cf service-brokers &gt;!\[2-4-0-0\] - Mongodb 서비스 브로커를 등록한다. &gt;$ cf create-service-broker {서비스팩 이름}{서비스팩 사용자ID}{서비스팩 사용자비밀번호} http://{서비스팩 URL} - 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다. - 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다. - 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다. &gt; &gt;$ cf create-service-broker mongodb-shard-service-broker admin cloudfoundry http://10.0.0.114:8080 &gt;!\[2-4-1-0\] - 등록된 Mongodb 서비스 브로커를 확인한다. &gt;$ cf service-brokers &gt;!\[2-4-2-0\] - 접근 가능한 서비스 목록을 확인한다. &gt;$ cf service-access &gt;!\[2-4-3-0\] &gt;서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
+### 2.4. Mongodb 서비스 브로커 등록
+
+Mongodb 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 Mongodb 서비스 브로커를 등록해 주어야 한다. 서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
+
+* 서비스 브로커 목록을 확인한다.
+
+> $ cf service-brokers ![](../../../.gitbook/assets/2-4-0-0-8-.png)
+
+* Mongodb 서비스 브로커를 등록한다.
+
+> $ cf create-service-broker {서비스팩 이름}{서비스팩 사용자ID}{서비스팩 사용자비밀번호} [http://{서비스팩](http://{서비스팩) URL}
+>
+> * 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다.  
+> * 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.  
+> * 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.  
+>
+> $ cf create-service-broker mongodb-shard-service-broker admin cloudfoundry [http://10.0.0.114:8080](http://10.0.0.114:8080)  
+> ![](../../../.gitbook/assets/2-4-1-0-8-.png)
+
+* 등록된 Mongodb 서비스 브로커를 확인한다.
+
+> $ cf service-brokers ![](../../../.gitbook/assets/2-4-2-0-8-.png)
+
+* 접근 가능한 서비스 목록을 확인한다.
+
+> $ cf service-access !\[2-4-3-0\]서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
 
 * 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. \(전체 조직\)
 
 > $ cf enable-service-access Mongo-DB  
 > $ cf service-access  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/2-4-4-0.png)
+> ![](../../../.gitbook/assets/2-4-4-0-8-.png)
 
 ## 3. Mongodb연동 Sample App 설명
 
@@ -347,7 +415,7 @@ Sample Web App 구조는 다음과 같다.
 
 * OpenPaaS-Sample-Apps을 다운로드 받고 Service 폴더안에 있는 Mongodb Sample Web App인 hello-spring-mongodb 를복사한다.
 
-> $ ls -all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-1-0-0.png)
+> $ ls -all ![](../../../.gitbook/assets/3-1-0-0-6-.png)
 
 ### 3.2. 개방형 클라우드 플랫폼에서 서비스 신청
 
@@ -356,7 +424,7 @@ Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 �
 
 * 먼저 개방형 클라우드 플랫폼 Marketplace에서 서비스가 있는지 확인을 한다.
 
-> $ cf marketplace ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-2-0-0.png)
+> $ cf marketplace ![](../../../.gitbook/assets/3-2-0-0-5-.png)
 
 * Marketplace에서 원하는 서비스가 있으면 서비스 신청\(Provision\)을 한다.
 
@@ -367,11 +435,11 @@ Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 �
 > * 내서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
 >
 > $ cf create-service Mongo-DB default-plan mongodb-service-instance  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-2-1-0.png)
+> ![](../../../.gitbook/assets/3-2-1-0-5-.png)
 
 * 생성된 Mongodb 서비스 인스턴스를 확인한다.
 
-> $ cf services ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-2-2-0.png)
+> $ cf services ![](../../../.gitbook/assets/3-2-2-0-5-.png)
 
 ### 3.3. Sample App에 서비스 바인드 신청 및 App 확인
 
@@ -399,24 +467,24 @@ Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 �
   --no-start: App 배포시 구동은 하지 않는다.
 
 > $ cf push --no-start  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-0-0.png)
+>  ![](../../../.gitbook/assets/3-3-0-0-5-.png)
 
 * 배포된 Sample App을 확인하고 로그를 수행한다.
 
 > $ cf apps  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-1-0.png)  
+> ![](../../../.gitbook/assets/3-3-1-0-5-.png)  
 > $ cf logs {배포된 App명}  
 > $ cf logs hello-spring-mongodb  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-2-0.png)
+> ![](../../../.gitbook/assets/3-3-2-0-5-.png)
 
 * Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다. 
 
-> $ cf bind-service hello-spring-mongodb mongodb-service-instance ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-3-0.png)
+> $ cf bind-service hello-spring-mongodb mongodb-service-instance ![](../../../.gitbook/assets/3-3-3-0-5-%20%281%29.png)
 
 * 바인드가 적용되기 위해서 App을 재기동한다.
 
-> $ cf restart hello-spring-mongodb ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-4-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-4-1.png)
+> $ cf restart hello-spring-mongodb ![](../../../.gitbook/assets/3-3-4-0-5-.png)  
+> ![](../../../.gitbook/assets/3-3-4-1-5-.png)
 
 * \(참고\) 바인드 후 App구동시 Mongodb 서비스 접속 에러로 App 구동이 안될 경우 보안 그룹을 추가한다.
 
@@ -438,25 +506,25 @@ Sample Web App에서 Mongodb 서비스를 사용하기 위해서는 서비스 �
 > - 보안 그룹을 생성한다.  
 >
 >
-> $ cf create-security-group Mongo-DB rule.json ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-5-0.png)
+> $ cf create-security-group Mongo-DB rule.json ![](../../../.gitbook/assets/3-3-5-0-4-.png)
 >
 > - 모든 App에 Mongodb 서비스를 사용할수 있도록 생성한 보안 그룹을 적용한다.  
 >
 >
-> $ cf bind-running-security-group Mongo-DB ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-6-0.png)
+> $ cf bind-running-security-group Mongo-DB ![](../../../.gitbook/assets/3-3-6-0-4-.png)
 >
 > - App을 리부팅 한다.  
 >
 >
-> $ cf restart hello-spring-mongodb ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-7-0.png)
+> $ cf restart hello-spring-mongodb ![](../../../.gitbook/assets/3-3-7-0-4-.png)
 
 * App이 정상적으로 Mongodb 서비스를 사용하는지 확인한다.
 
 > - curl 로 확인  
->  $ curl hello-spring-mongodb.115.68.46.30.xip.io ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-8-0.png)
+>  $ curl hello-spring-mongodb.115.68.46.30.xip.io ![](../../../.gitbook/assets/3-3-8-0-4-.png)
 >
 > - 브라우져에서 확인  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/3-3-8-1.png)
+>  ![](../../../.gitbook/assets/3-3-8-1-4-.png)
 
 ## 4. Mongodb Client 툴 접속
 
@@ -466,21 +534,21 @@ Application에 바인딩된 Mongodb 서비스 연결정보는 Private IP로 구�
 
 MongoChef 프로그램은 무료로 사용할 수 있는 소프트웨어이다.
 
-* MongoChef을 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다. [**http://3t.io/mongochef/download/platform/**](http://3t.io/mongochef/download/platform/)  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-0-0.png)
-* 다운로드한 설치파일을 실행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-1-0.png)
-* MongoChef 설치를 위한 안내사항이다. Next 버튼을 클릭한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-2-0.png)
-* 프로그램 라이선스에 관련된 내용이다. 동의\(I accept the terms in the License Agreement\)에 체크 후 Next 버튼을 클릭한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-3-0.png)
-* MongoChef 을 설치할 경로를 설정 후 Next 버튼을 클릭한다. 별도의 경로 설정이 필요 없을 경우 default로 C드라이브 Program Files 폴더에 설치가 된다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-4-0.png)
-* Install 버튼을 클릭하여 설치를 진행한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-5-0.png)
-* Finish 버튼 클릭으로 설치를 완료한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-6-0.png)
-* MongoChef를 실행했을 때 처음 뜨는 화면이다. 이 화면에서 Server에 접속하기 위한 profile을 설정/저장하여 접속할 수 있다. Connect버튼을 클릭한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-7-0.png)
-* 새로운 접속 정보를 작성하기 위해 New Connection 버튼을 클릭한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-8-0.png)
-* Server에 접속하기 위한 Connection 정보를 입력한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-9-0.png) 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다. 예\) $ cf env hello-spring-mongodb ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-10-0.png)
-* Authentication탭으로 이동하여 mongodb 의 인증정보를 입력한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-11-0.png)
-* SSH 터널 탭을 클릭하고 OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-12-0.png)
-* 모든 정보를 입력했으면 Test Connection 버튼을 눌러 접속 테스트를 한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-13-0.png) 모두 OK 결과가 나오면 정상적으로 접속이 된다는 것이다. OK 버튼을 눌러 빠져나온다.
-* Save 버튼을 눌러 작성한 접속정보를 저장한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-14-0.png)
-* 방금 저장한 접속정보를 선택하고 Connect 버튼을 클릭하여 접속한다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-15-0.png)
-* 접속이 완료되면 좌측에 스키마 정보가 나타난다. 컬럼을 더블클릭 해보면 우측에 적재되어있는 데이터가 출력된다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-16-0.png)
-* 우측 화면에 쿼리 항목에 Query문을 작성한 후 실행 버튼\(삼각형\)을 클릭한다. 쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다. ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/mongodb/mongodb_aws/4-1-17-0.png)
+* MongoChef을 다운로드 하기 위해 아래 URL로 이동하여 설치파일을 다운로드 한다. [**http://3t.io/mongochef/download/platform/**](http://3t.io/mongochef/download/platform/)  ![](../../../.gitbook/assets/4-1-0-0-1-.png)
+* 다운로드한 설치파일을 실행한다. ![](../../../.gitbook/assets/4-1-1-0-1-.png)
+* MongoChef 설치를 위한 안내사항이다. Next 버튼을 클릭한다. ![](../../../.gitbook/assets/4-1-2-0-1-.png)
+* 프로그램 라이선스에 관련된 내용이다. 동의\(I accept the terms in the License Agreement\)에 체크 후 Next 버튼을 클릭한다. ![](../../../.gitbook/assets/4-1-3-0-1-.png)
+* MongoChef 을 설치할 경로를 설정 후 Next 버튼을 클릭한다. 별도의 경로 설정이 필요 없을 경우 default로 C드라이브 Program Files 폴더에 설치가 된다. ![](../../../.gitbook/assets/4-1-4-0-1-.png)
+* Install 버튼을 클릭하여 설치를 진행한다. ![](../../../.gitbook/assets/4-1-5-0-1-.png)
+* Finish 버튼 클릭으로 설치를 완료한다. ![](../../../.gitbook/assets/4-1-6-0-2-.png)
+* MongoChef를 실행했을 때 처음 뜨는 화면이다. 이 화면에서 Server에 접속하기 위한 profile을 설정/저장하여 접속할 수 있다. Connect버튼을 클릭한다. ![](../../../.gitbook/assets/4-1-7-0-1-.png)
+* 새로운 접속 정보를 작성하기 위해 New Connection 버튼을 클릭한다. ![](../../../.gitbook/assets/4-1-8-0.png)
+* Server에 접속하기 위한 Connection 정보를 입력한다. ![](../../../.gitbook/assets/4-1-9-0.png) 서버 정보는 Application에 바인드되어 있는 서버 정보를 입력한다. cf env  명령어로 이용하여 확인한다. 예\) $ cf env hello-spring-mongodb ![](../../../.gitbook/assets/4-1-10-0.png)
+* Authentication탭으로 이동하여 mongodb 의 인증정보를 입력한다. ![](../../../.gitbook/assets/4-1-11-0.png)
+* SSH 터널 탭을 클릭하고 OpenPaaS 운영 관리자에게 제공받은 SSH 터널링 가능한 서버 정보를 입력한다. ![](../../../.gitbook/assets/4-1-12-0.png)
+* 모든 정보를 입력했으면 Test Connection 버튼을 눌러 접속 테스트를 한다. ![](../../../.gitbook/assets/4-1-13-0.png) 모두 OK 결과가 나오면 정상적으로 접속이 된다는 것이다. OK 버튼을 눌러 빠져나온다.
+* Save 버튼을 눌러 작성한 접속정보를 저장한다. ![](../../../.gitbook/assets/4-1-14-0.png)
+* 방금 저장한 접속정보를 선택하고 Connect 버튼을 클릭하여 접속한다. ![](../../../.gitbook/assets/4-1-15-0.png)
+* 접속이 완료되면 좌측에 스키마 정보가 나타난다. 컬럼을 더블클릭 해보면 우측에 적재되어있는 데이터가 출력된다. ![](../../../.gitbook/assets/4-1-16-0.png)
+* 우측 화면에 쿼리 항목에 Query문을 작성한 후 실행 버튼\(삼각형\)을 클릭한다. 쿼리문에 이상이 없다면 정상적으로 결과를 얻을 수 있을 것이다. ![](../../../.gitbook/assets/4-1-17-0.png)
 
