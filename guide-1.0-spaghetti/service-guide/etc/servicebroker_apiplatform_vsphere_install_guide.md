@@ -1,18 +1,6 @@
 # Service API Platform 설치 가이드\(vSphere\)
 
-1. [문서 개요](servicebroker_apiplatform_vsphere_install_guide.md#1-문서-개요)
-   * 1.1. [목적](servicebroker_apiplatform_vsphere_install_guide.md#11-목적)
-   * 1.2. [범위](servicebroker_apiplatform_vsphere_install_guide.md#12-범위)
-   * 1.3. [시스템 구성도](servicebroker_apiplatform_vsphere_install_guide.md#13-시스템-구성도)
-   * 1.4. [참고자료](servicebroker_apiplatform_vsphere_install_guide.md#14-참고자료)
-2. [API 플랫폼 서비스팩 설치](servicebroker_apiplatform_vsphere_install_guide.md#2-API-플랫폼-서비스팩-설치)
-   * 2.1. [설치전 준비사항](servicebroker_apiplatform_vsphere_install_guide.md#21-설치전-준비사항)
-   * 2.2. [API 플랫폼 서비스 릴리즈 업로드](servicebroker_apiplatform_vsphere_install_guide.md#22-API-플랫폼-서비스-릴리즈-업로드)
-   * 2.3. [API 플랫폼 서비스 Deployment 파일 수정 및 배포](servicebroker_apiplatform_vsphere_install_guide.md#23-API-플랫폼-서비스-deployment-파일-수정-및-배포)
-   * 2.4. [API 매니저에서 API 생성 및 배포](servicebroker_apiplatform_vsphere_install_guide.md#24-API-매니저에서-API-생성-및-베포)
-   * 2.5. [API 플랫폼 서비스 브로커 등록](servicebroker_apiplatform_vsphere_install_guide.md#25-API-플랫폼-서비스-브로커-등록)
-3. [API 플랫폼 연동 Sample Web App 설명](servicebroker_apiplatform_vsphere_install_guide.md#3-API-플랫폼-연동-sample-web-app-설명)
-   * 3.1. [Sample Web App에 서비스 바인드 신청 및 App 확인](servicebroker_apiplatform_vsphere_install_guide.md#31-sample-web-app에-서비스-바인드-신청-및-app-확인)
+## 
 
 ## 1. 문서 개요
 
@@ -28,7 +16,7 @@
 
 본 문서의 설치된 시스템 구성도입니다. API 플랫폼\(apimanager\), API 플랫폼 서비스 브로커\(apiplatform-broker\), Business Activity Monitor\(bam\), MariaDB\(mariadb\)로 최소사항을 구성하였다.
 
-![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/시스템구성도.png)
+![](../../../.gitbook/assets/2-%20%282%29.png)
 
 | 구분 | Resource Pool | Instance type/스펙 |
 | :--- | :--- | :--- |
@@ -63,7 +51,7 @@
 >
 > `$ ls –all`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image3.png)
+> ![](../../../.gitbook/assets/image3-2-%20%281%29.png)
 
 * API 플랫폼 서비스 릴리즈 파일을 업로드한다.
 
@@ -73,15 +61,15 @@
 >
 > ※ 하단의 화면은 릴리즈 파일을 tarball 형태로 압축하지 않고 릴리즈를 업로드하고 있다. 본 문서에서 안내하는 방법대로 tarball 형태로 릴리즈 파일 압축하여 업로드 할 경우에 출력되는 화면은 하단의 화면과 다소 차이가 있다.
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image4.png)
+> ![](../../../.gitbook/assets/image4-2-%20%281%29.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image5.png)
+> ![](../../../.gitbook/assets/image5-2-.png)
 
 * 업로드 된API 플랫폼 릴리즈를 확인한다.
 
 > `$ bosh releases`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image6.png)
+> ![](../../../.gitbook/assets/image6-2-.png)
 >
 > API 플랫폼 릴리즈가 업로드 되어 있는 것을 확인
 
@@ -93,7 +81,7 @@ BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한
 
 > `$ ls -all`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image7.png)
+> ![](../../../.gitbook/assets/image7-2-.png)
 
 * Director UUID를 확인한다.
 
@@ -101,13 +89,13 @@ BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한
 
 > `$ bosh status`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image8.png)
+> ![](../../../.gitbook/assets/image8-3-.png)
 
 * Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\)
 
 > `$ bosh stemcells`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image9.png)
+> ![](../../../.gitbook/assets/image9-3-.png)
 >
 > Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
 
@@ -263,21 +251,21 @@ jobs:
 
 > `$ bosh deployment openpaas-apiplatform-vsphere-1.0.yml`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image10.png)
+> ![](../../../.gitbook/assets/image10-3-.png)
 
 * API 플랫폼 서비스팩을 배포한다. 환경에 따라 다르지만 API 플랫폼 서비스팩 배포는 일반적으로 30분에서 50분 가량이 소요된다. 
 
 > `$ bosh deploy`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image11.png)
+> ![](../../../.gitbook/assets/image11-3-.png)
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image12.png)
+> ![](../../../.gitbook/assets/image12-3-.png)
 
 * 배포된 API 플랫폼 서비스팩을 확인한다.
 
 > `$ bosh vms`
 >
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/apiplatform/apiplatform_vsphere/image13.png)
+> ![](../../../.gitbook/assets/image13-3-.png)
 
 ### 2.4. API 매니저에서 API 생성 및 배포
 

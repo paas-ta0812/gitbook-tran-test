@@ -1,7 +1,5 @@
 # Service API Platform 설치 가이드\(OpenStack\)
 
-## 
-
 ## 1. 문서 개요
 
 ### 1.1. 목적
@@ -51,7 +49,7 @@
 >
 > `$ ls –all`
 >
-> ![](../../../.gitbook/assets/image3-2-%20%281%29.png)
+> ![](../../../.gitbook/assets/image3-2-%20%282%29.png)
 
 * API 플랫폼 서비스 릴리즈 파일을 업로드한다.
 
@@ -61,7 +59,7 @@
 >
 > ※ 하단의 화면은 릴리즈 파일을 tarball 형태로 압축하지 않고 릴리즈를 업로드하고 있다. 본 문서에서 안내하는 방법대로 tarball 형태로 릴리즈 파일 압축하여 업로드 할 경우에 출력되는 화면은 하단의 화면과 다소 차이가 있다.
 >
-> ![](../../../.gitbook/assets/image4-2-%20%281%29.png)
+> ![](../../../.gitbook/assets/image4-2-%20%283%29.png)
 >
 > ![](../../../.gitbook/assets/image5-1-%20%281%29.png)
 
