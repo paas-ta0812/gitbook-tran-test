@@ -186,6 +186,8 @@
 > $ cf enable-service-access glusterfs $ cf service-access  
 > ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/2-4-4-0.png)
 
+## 
+
 ## 3. GlusterFS연동 Sample App 설명
 
 본 Sample Web App은 개발형 클라우드 플랫폼에 배포되며 GlusterFS의 서비스를 Provision과 Bind를 한 상태에서 사용이 가능하다.
@@ -203,9 +205,9 @@ Sample Web App 구조는 다음과 같다.
 | pom.xml | 메이븐 project 설정 파일 |
 | target | 메이븐 빌드시 생성되는 디렉토리\(war 파일, classes 폴더 등\) |
 
-* OpenPaaS-Sample-Apps을 다운로드 받고 Service폴더안에 있는 GlusterFSSample Web App인 hello-spring-glusterfs를복사한다.
+* OpenPaaS-Sample-Apps을 다운로드 받고 Service폴더안에 있는 GlusterFSSample Web App인 hello-spring-glusterfs를 복사한다.
 
-> $ ls -all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-1-0-0.png)
+> $ ls -all ![](../../../.gitbook/assets/3-1-0-0-4-.png)
 
 ### 3.2. 개방형 클라우드 플랫폼에서 서비스 신청
 
@@ -213,22 +215,22 @@ Sample Web App에서 GlusterFS 서비스를 사용하기 위해서는 서비스 
 
 * 먼저 개방형 클라우드 플랫폼 Marketplace에서 서비스가 있는지 확인을 한다.
 
-> $ cf marketplace ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-2-0-0.png)
+> $ cf marketplace ![](../../../.gitbook/assets/3-2-0-0-4-.png)
 
 * Marketplace에서 원하는 서비스가 있으면 서비스 신청\(Provision\)을 한다.
 
 > $ cf create-service {서비스명} {서비스플랜} {내서비스명}
 >
-> * 서비스명 : glusterfs로 Marketplace에서 보여지는 서비스 명칭이다.  
+> * 서비스명 : Mongo-DB로 Marketplace에서 보여지는 서비스 명칭이다.  
 > * 서비스플랜 : 서비스에 대한 정책으로 plans에 있는 정보 중 하나를 선택한다. GlusterFS 서비스는 100mb, 1gb를 지원한다.  
 > * 내서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
 >
 > $ cf create-service glusterfs glusterfs-1000Mb glusterfs-service-instance  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-2-1-0.png)
+> ![](../../../.gitbook/assets/3-2-1-0-4-.png)
 
 * 생성된 GlusterFS 서비스 인스턴스를 확인한다.
 
-> $ cf services ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-2-2-0.png)
+> $ cf services ![](../../../.gitbook/assets/3-2-2-0-4-.png)
 
 ### 3.3. Sample App에 서비스 바인드 신청 및 App 확인
 
@@ -256,30 +258,34 @@ Sample Web App에서 GlusterFS 서비스를 사용하기 위해서는 서비스 
   --no-start: App 배포시 구동은 하지 않는다.
 
 > $ cf push --no-start  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-0-0.png)
+>  ![](../../../.gitbook/assets/3-3-0-0-4-.png)
 
 * 배포된 Sample App을 확인하고 로그를 수행한다.
 
 > $ cf apps  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-1-0.png)
+>  ![](../../../.gitbook/assets/3-3-1-0-4-.png)
 >
 > $ cf logs {배포된 App명}  
->  $ cf logs hello-spring-glusterfs ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-1-1.png)
+>  $ cf logs hello-spring-glusterfs ![](../../../.gitbook/assets/3-3-1-1.png)
 
 * Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다. 
 
-> $ cf bind-service hello-spring-glusterfs glusterfs-service-instance ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-2-0.png)
+> $ cf bind-service hello-spring-glusterfs glusterfs-service-instance ![](../../../.gitbook/assets/3-3-2-0-4-.png)
 
 * 바인드가 적용되기 위해서 App을 재기동한다.
 
-> $ cf restart hello-spring-glusterfs ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-3-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-3-1.png)
+> $ cf restart hello-spring-glusterfs 
+>
+> ![](../../../.gitbook/assets/3-3-3-0-4-.png)  
+> ![](../../../.gitbook/assets/3-3-3-1.png)
 
 * App이 정상적으로 GlusterFS 서비스를 사용하는지 확인한다.
 
 > - curl 로 확인  
->  $ curl --form attchFile=@../../../Desert.jpg --form press=OK hello-spring-glusterfs.115.68.46.30.xip.io/swifttest ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-4-0.png)
+>  $ curl --form attchFile=@../../../Desert.jpg --form press=OK hello-spring-glusterfs.115.68.46.30.xip.io/swifttest 
+>
+> ![](../../../.gitbook/assets/3-3-4-0-4-.png)
 >
 > - 브라우져에서 이미지 확인  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_vsphere/3-3-4-1.png)
+>  ![](../../../.gitbook/assets/3-3-4-1-4-.png)
 

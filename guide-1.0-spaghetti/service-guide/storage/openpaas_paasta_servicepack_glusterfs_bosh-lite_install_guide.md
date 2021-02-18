@@ -1,31 +1,92 @@
 # GlusterFS 설치 가이드\(Bosh-Lite\)
 
-1. [문서 개요](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#1)
-   * [1.1. 목적](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#2)
-   * [1.2. 범위](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#3)
-   * [1.3. 시스템 구성도](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#4)
-   * [1.4. 참고자료](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#5)
-2. [GlusterFS 서비스팩 설치](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#6)
-   * [2.1. 설치전 준비사항](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#7)
-   * [2.2. GlusterFS 서비스 릴리즈 업로드](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#8)
-   * [2.3. GlusterFS 서비스 Deployment 파일 수정 및 배포](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#9)
-   * [2.4. GlusterFS 서비스 브로커 등록](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#10)
-3. [GlusterFS 연동 Sample App 설명](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#11)
-   * [3.1. Sample App 구조](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#12)
-   * [3.2. 개방형 클라우드 플랫폼에서 서비스 신청](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#13)
-   * [3.3. Sample App에 서비스 바인드 신청 및 App 확인](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#14)
-4. [GlusterFS Client 툴 접속](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#15)
-   * [4.1. Putty 다운로드 및 터널링](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#16)
-   * [4.2. GlusterFS Manager 설치 및 연결](openpaas_paasta_servicepack_glusterfs_bosh-lite_install_guide.md#17)
+## 1. 문서 개요
 
- \# 1. 문서 개요 \#\#\# 1.1. 목적 본 문서\(GlusterFS서비스팩설치 가이드\)는 전자정부표준프레임워크 기반의 Open PaaS에서 제공되는 서비스팩인GlusterFS서비스팩을 Bosh를 이용하여 설치 하는 방법과 Open PaaS의 SaaS 형태로 제공하는 Application 에서GlusterFS 서비스를 사용하는 방법을 기술하였다. \#\#\# 1.2. 범위 설치 범위는 GlusterFS서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다. \#\#\# 1.3. 시스템 구성도 본 문서의 설치된 시스템 구성도입니다. Mysql Server, GlusterFS 서비스 브로커로 최소사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있습니다. !\[시스템 구성도\]\[1-3-0-0\]
+### 1.1. 목적
+
+본 문서\(GlusterFS서비스팩설치 가이드\)는 전자정부표준프레임워크 기반의 Open PaaS에서 제공되는 서비스팩인GlusterFS서비스팩을 Bosh를 이용하여 설치 하는 방법과 Open PaaS의 SaaS 형태로 제공하는 Application 에서GlusterFS 서비스를 사용하는 방법을 기술하였다.
+
+### 1.2. 범위
+
+설치 범위는 GlusterFS서비스팩을 검증하기 위한 기본 설치를 기준으로 작성하였다.
+
+### 1.3. 시스템 구성도
+
+본 문서의 설치된 시스템 구성도입니다. Mysql Server, GlusterFS 서비스 브로커로 최소사항을 구성하였고 서비스 백엔드는 외부에 구성되어 있습니다. ![](../../../.gitbook/assets/1-3-0-0-4-.png)
 
 | 구분 | 스펙 |
 | :--- | :--- |
 | openpaas-glusterfs-broker | 2vCPU / 4GB RAM / 10GB Disk |
 | mysql | 2vCPU / 4GB RAM / 10GB Disk+10GB\(영구적 Disk\) |
 
- \#\#\# 1.4. 참고자료 \*\*\*\* \*\*\*\* \# 2. GlusterFS 서비스팩 설치 \#\#\# 2.1. 설치전 준비사항 본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다. 서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다. BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다. - OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-Services, OpenPaaS-Deployment, OpenPaaS-Sample-Apps\) - 다운로드 위치 &gt;OpenPaaS-Services : \*\*\*\* &gt;OpenPaaS-Deployment : \*\*\*\* &gt;OpenPaaS-Sample-Apps : \*\*\*\* \#\#\# 2.2. GlusterFS 서비스 릴리즈 업로드 - OpenPaaS-Services을 다운로드 받고 폴더안에 있는 GlusterFS 서비스 릴리즈 openpaas-glusterfs-1.0.tgz 파일을 확인한다. &gt;$ cd OpenPaaS-Services &gt;$ ls –all !\[2-2-0-0\] - 업로드 되어 있는 릴리즈 목록을 확인한다. &gt;$ bosh releases &gt; !\[2-2-1-0\] &gt;GlusterFS 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인 - GlusterFS 서비스 릴리즈 파일을 업로드한다. &gt;$ bosh upload release {서비스 릴리즈 파일 PATH} &gt; &gt;$ bosh upload release openpaas-glusterfs-1.0.tgz !\[2-2-2-0\] !\[2-2-2-1\] !\[2-2-2-2\] - 업로드 된 GlusterFS 릴리즈를 확인한다. &gt;$ bosh releases !\[2-2-3-0\] &gt;GlusterFS 서비스 릴리즈가 업로드 되어 있는 것을 확인 \#\#\# 2.3. GlusterFS 서비스 Deployment 파일 수정 및 배포 BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다. Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \(OS, BOSH agent\) 을 사용할것이며 Release \(Software packages, Config templates, Scripts\) 이름과 버전, VMs 용량, Jobs params등을 정의가 되어 있다. - OpenPaaS-Deployment을 다운로드 받고 폴더안에 있는 bosh lite용 glusterFS Deployment 화일인 openpaas-gusterfs-lite-1.0.yml를 복사한다. - 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-glusterfs-lite-1.0.yml\) &gt;$ ls –all &gt;!\[2-3-0-0\] - Director UUID를 확인한다. - BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다. &gt;$ bosh status &gt;!\[2-3-1-0\] - Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\) &gt;$ bosh stemcells &gt;!\[2-3-2-0\] &gt;Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
+### 1.4. 참고자료
+
+[http://bosh.io/docs](http://bosh.io/docs)  
+[http://docs.cloudfoundry.org/](http://docs.cloudfoundry.org/)
+
+## 2. GlusterFS 서비스팩 설치
+
+### 2.1. 설치전 준비사항
+
+본 설치 가이드는 Linux 환경에서 설치하는 것을 기준으로 하였다.  
+서비스팩 설치를 위해서는 먼저 BOSH CLI 가 설치 되어 있어야 하고 BOSH 에 로그인 및 타켓 설정이 되어 있어야 한다.  
+BOSH CLI 가 설치 되어 있지 않을 경우 먼저 BOSH 설치 가이드 문서를 참고 하여BOSH CLI를 설치 해야 한다.
+
+* OpenPaaS 에서 제공하는 릴리즈 파일들을 다운받는다. \(OpenPaaS-Services, OpenPaaS-Deployment, OpenPaaS-Sample-Apps\)
+* 다운로드 위치
+
+> OpenPaaS-Services : [http://extdisk.hancom.com:8080/share.cgi?ssid=0IgH8sM](http://extdisk.hancom.com:8080/share.cgi?ssid=0IgH8sM)  
+> OpenPaaS-Deployment : [http://extdisk.hancom.com:8080/share.cgi?ssid=0YWXQzq](http://extdisk.hancom.com:8080/share.cgi?ssid=0YWXQzq)  
+> OpenPaaS-Sample-Apps : [http://extdisk.hancom.com:8080/share.cgi?ssid=0icB5ZW](http://extdisk.hancom.com:8080/share.cgi?ssid=0icB5ZW)
+
+### 2.2. GlusterFS 서비스 릴리즈 업로드
+
+* OpenPaaS-Services을 다운로드 받고 폴더안에 있는 GlusterFS 서비스 릴리즈 openpaas-glusterfs-1.0.tgz 파일을 확인한다.
+
+> $ cd OpenPaaS-Services  
+> $ ls –all  
+> ![](../../../.gitbook/assets/2-2-0-0-1-.png)
+
+* 업로드 되어 있는 릴리즈 목록을 확인한다.
+
+> $ bosh releases
+>
+> ![](../../../.gitbook/assets/2-2-1-0-1-.png)  
+> GlusterFS 서비스 릴리즈가 업로드 되어 있지 않은 것을 확인
+
+* GlusterFS 서비스 릴리즈 파일을 업로드한다.
+
+> $ bosh upload release {서비스 릴리즈 파일 PATH}
+>
+> $ bosh upload release openpaas-glusterfs-1.0.tgz  
+> ![](../../../.gitbook/assets/2-2-2-0-1-.png)  
+> ![](../../../.gitbook/assets/2-2-2-1-1-.png)  
+> ![](../../../.gitbook/assets/2-2-2-2-1-.png)
+
+* 업로드 된 GlusterFS 릴리즈를 확인한다. 
+
+> $ bosh releases  
+> ![](../../../.gitbook/assets/2-2-3-0-1-.png)  
+> GlusterFS 서비스 릴리즈가 업로드 되어 있는 것을 확인
+
+### 2.3.  GlusterFS 서비스 Deployment 파일 수정 및 배포
+
+BOSH Deployment manifest 는 components 요소 및 배포의 속성을 정의한 YAML 파일이다.  
+Deployment manifest 에는 sotfware를 설치 하기 위해서 어떤 Stemcell \(OS, BOSH agent\) 을 사용할것이며 Release \(Software packages, Config templates, Scripts\) 이름과 버전, VMs 용량, Jobs params등을 정의가 되어 있다.
+
+* OpenPaaS-Deployment을 다운로드 받고 폴더안에 있는 bosh lite용 glusterFS Deployment 화일인 openpaas-gusterfs-lite-1.0.yml를 복사한다.
+* 다운로드 받은 Deployment Yml 파일을 확인한다. \(openpaas-glusterfs-lite-1.0.yml\)
+
+> $ ls –all ![](../../../.gitbook/assets/2-3-0-0-5-.png)
+
+* Director UUID를 확인한다.
+* BOSH CLI가 배포에 대한 모든 작업을 허용하기위한 현재 대상 BOSH Director의 UUID와 일치해야한다. ‘bosh status’ CLI 을 통해서 현재 BOSH Director 에 target 되어 있는 UUID를 확인할수 있다.
+
+> $ bosh status ![](../../../.gitbook/assets/2-3-1-0-5-.png)
+
+* Deploy시 사용할 Stemcell을 확인한다. \(Stemcell 3147 버전 사용\)
+
+> $ bosh stemcells !\[2-3-2-0\]Stemcell 목록이 존재 하지 않을 경우 BOSH 설치 가이드 문서를 참고 하여 Stemcell 3147 버전을 업로드를 해야 한다.
 
 * openpaas-glusterfs-lite-1.0.yml Deployment 파일을 서버 환경에 맞게 수정한다.   
 
@@ -161,26 +222,52 @@
 
 > $ bosh deployment {Deployment manifest 파일 PATH}  
 > $ bosh deployment openpaas-glusterfs-lite-1.0.yml  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/2-3-3-0.png)
+> ![](../../../.gitbook/assets/2-3-3-0-4-.png)
 
 * GlusterFS 서비스팩을 배포한다.
 
 > $ bosh deploy  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/2-3-4-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/2-3-4-1.png)
+> ![](../../../.gitbook/assets/2-3-4-0-5-.png)  
+> ![](../../../.gitbook/assets/2-3-4-1-5-.png)
 
 * 배포된 GlusterFS 서비스팩을 확인한다.
 
 > $ bosh vms openpaas-glusterfs-service  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/2-3-5-0.png)
+> ![](../../../.gitbook/assets/2-3-5-0-5-.png)
 
- \#\#\# 2.4. GlusterFS 서비스 브로커 등록 GlusterFS 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 GlusterFS 서비스 브로커를 등록해 주어야 한다. 서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다. - 서비스 브로커 목록을 확인한다. &gt;$ cf service-brokers !\[2-4-0-0\] - GlusterFS 서비스 브로커를 등록한다. &gt;$ cf create-service-broker {서비스팩 이름}{서비스팩 사용자ID}{서비스팩 사용자비밀번호} http://{서비스팩 URL} - 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다. - 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다. - 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다. &gt; &gt;$ cf create-service-broker glusterfs-service-broker admin cloudfoundry http://10.30.40.197:8080 &gt;!\[2-4-1-0\] - 등록된 GlusterFS 서비스 브로커를 확인한다. &gt;$ cf service-brokers &gt;!\[2-4-2-0\] - 접근 가능한 서비스 목록을 확인한다. &gt;$ cf service-access &gt;!\[2-4-3-0\] &gt;서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
+### 2.4. GlusterFS 서비스 브로커 등록
+
+GlusterFS 서비스팩 배포가 완료 되었으면 Application에서 서비스 팩을 사용하기 위해서 먼저 GlusterFS 서비스 브로커를 등록해 주어야 한다.  
+서비스 브로커 등록시 개방형 클라우드 플랫폼에서 서비스브로커를 등록할 수 있는 사용자로 로그인이 되어있어야 한다.
+
+* 서비스 브로커 목록을 확인한다.
+
+> $ cf service-brokers ![](../../../.gitbook/assets/2-4-0-0-5-.png)
+
+* GlusterFS 서비스 브로커를 등록한다.
+
+> $ cf create-service-broker {서비스팩 이름}{서비스팩 사용자ID}{서비스팩 사용자비밀번호} [http://{서비스팩](http://{서비스팩) URL}
+>
+> * 서비스팩 이름 : 서비스 팩 관리를 위해 개방형 클라우드 플랫폼에서 보여지는 명칭이다. 서비스 Marketplace에서는 각각의 API 서비스 명이 보여지니 여기서 명칭은 서비스팩 리스트의 명칭이다.  
+> * 서비스팩 사용자ID / 비밀번호 : 서비스팩에 접근할 수 있는 사용자 ID입니다. 서비스팩도 하나의 API 서버이기 때문에 아무나 접근을 허용할 수 없어 접근이 가능한 ID/비밀번호를 입력한다.  
+> * 서비스팩 URL : 서비스팩이 제공하는 API를 사용할 수 있는 URL을 입력한다.  
+>
+> $ cf create-service-broker glusterfs-service-broker admin cloudfoundry [http://10.30.40.197:8080](http://10.30.40.197:8080)  
+> ![](../../../.gitbook/assets/2-4-1-0-5-.png)
+
+* 등록된 GlusterFS 서비스 브로커를 확인한다.
+
+> $ cf service-brokers ![](../../../.gitbook/assets/2-4-2-0-5-.png)
+
+* 접근 가능한 서비스 목록을 확인한다.
+
+> $ cf service-access !\[2-4-3-0\]서비스 브로커 생성시 디폴트로 접근을 허용하지 않는다.
 
 * 특정 조직에 해당 서비스 접근 허용을 할당하고 접근 서비스 목록을 다시 확인한다. \(전체 조직\)
 
 > $ cf enable-service-access Mongo-DB  
 > $ cf service-access  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/2-4-4-0.png)
+> ![](../../../.gitbook/assets/2-4-4-0-5-.png)
 
 ## 3. GlusterFS연동 Sample App 설명
 
@@ -199,9 +286,9 @@ Sample Web App 구조는 다음과 같다.
 | pom.xml | 메이븐 project 설정 파일 |
 | target | 메이븐 빌드시 생성되는 디렉토리\(war 파일, classes 폴더 등\) |
 
-* OpenPaaS-Sample-Apps을 다운로드 받고 Service폴더안에 있는 GlusterFSSample Web App인 hello-spring-glusterfs를복사한다.
+* OpenPaaS-Sample-Apps을 다운로드 받고 Service폴더안에 있는 GlusterFSSample Web App인 hello-spring-glusterfs를 복사한다.
 
-> $ ls -all ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-1-0-0.png)
+> $ ls -all ![](../../../.gitbook/assets/3-1-0-0-4-.png)
 
 ### 3.2. 개방형 클라우드 플랫폼에서 서비스 신청
 
@@ -209,7 +296,7 @@ Sample Web App에서 GlusterFS 서비스를 사용하기 위해서는 서비스 
 
 * 먼저 개방형 클라우드 플랫폼 Marketplace에서 서비스가 있는지 확인을 한다.
 
-> $ cf marketplace ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-2-0-0.png)
+> $ cf marketplace ![](../../../.gitbook/assets/3-2-0-0-4-.png)
 
 * Marketplace에서 원하는 서비스가 있으면 서비스 신청\(Provision\)을 한다.
 
@@ -220,11 +307,11 @@ Sample Web App에서 GlusterFS 서비스를 사용하기 위해서는 서비스 
 > * 내서비스명 : 내 서비스에서 보여지는 명칭이다. 이 명칭을 기준으로 환경설정정보를 가져온다.  
 >
 > $ cf create-service glusterfs glusterfs-1000Mb glusterfs-service-instance  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-2-1-0.png)
+> ![](../../../.gitbook/assets/3-2-1-0-4-.png)
 
 * 생성된 GlusterFS 서비스 인스턴스를 확인한다.
 
-> $ cf services ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-2-2-0.png)
+> $ cf services ![](../../../.gitbook/assets/3-2-2-0-4-.png)
 
 ### 3.3. Sample App에 서비스 바인드 신청 및 App 확인
 
@@ -252,30 +339,34 @@ Sample Web App에서 GlusterFS 서비스를 사용하기 위해서는 서비스 
   --no-start: App 배포시 구동은 하지 않는다.
 
 > $ cf push --no-start  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-0-0.png)
+>  ![](../../../.gitbook/assets/3-3-0-0-4-.png)
 
 * 배포된 Sample App을 확인하고 로그를 수행한다.
 
 > $ cf apps  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-1-0.png)
+>  ![](../../../.gitbook/assets/3-3-1-0-4-.png)
 >
 > $ cf logs {배포된 App명}  
->  $ cf logs hello-spring-glusterfs ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-1-1.png)
+>  $ cf logs hello-spring-glusterfs ![](../../../.gitbook/assets/3-3-1-1.png)
 
 * Sample Web App에서 생성한 서비스 인스턴스 바인드 신청을 한다. 
 
-> $ cf bind-service hello-spring-glusterfs glusterfs-service-instance ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-2-0.png)
+> $ cf bind-service hello-spring-glusterfs glusterfs-service-instance ![](../../../.gitbook/assets/3-3-2-0-4-.png)
 
 * 바인드가 적용되기 위해서 App을 재기동한다.
 
-> $ cf restart hello-spring-glusterfs ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-3-0.png)  
-> ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-3-1.png)
+> $ cf restart hello-spring-glusterfs 
+>
+> ![](../../../.gitbook/assets/3-3-3-0-4-.png)  
+> ![](../../../.gitbook/assets/3-3-3-1.png)
 
 * App이 정상적으로 GlusterFS 서비스를 사용하는지 확인한다.
 
 > - curl 로 확인  
->  $ curl --form attchFile=@../../../Desert.jpg --form press=OK hello-spring-glusterfs.115.68.46.30.xip.io/swifttest ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-4-0.png)
+>  $ curl --form attchFile=@../../../Desert.jpg --form press=OK hello-spring-glusterfs.115.68.46.30.xip.io/swifttest 
+>
+> ![](../../../.gitbook/assets/3-3-4-0-4-.png)
 >
 > - 브라우져에서 이미지 확인  
->  ![](https://github.com/paas-ta0812/gitbook-trans-test/tree/6a20e8c8c3860f2d2b91a044caf15a02dd814297/images/openpaas-service/glusterfs/glusterfs_lite/3-3-4-1.png)
+>  ![](../../../.gitbook/assets/3-3-4-1-4-.png)
 
